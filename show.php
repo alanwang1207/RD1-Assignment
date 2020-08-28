@@ -1,3 +1,10 @@
+<?php
+
+if(isset($_POST["btnOk"])){
+    echo $_POST["cid"];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +15,8 @@
 </head>
 
 <body>
-    <select name="CID" id="CID" class="form-control">
+    <form  method="post">
+    <select name="cid" id="cid" class="form-control">
         <option value="" disabled="" selected="">選擇縣市</option>
         <option value="0">基隆市</option>
         <option value="1" selected="">臺北市</option>
@@ -33,6 +41,8 @@
         <option value="21">金門縣</option>
         <option value="22">連江縣</option>
     </select>
+    <input type="submit" name="btnOk" id="btnOk" value="送出">
+    </form>
 </body>
 
 </html>
