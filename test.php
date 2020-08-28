@@ -28,8 +28,12 @@ $json = json_decode($data, true);  // Decode json data
 
 
 for ($i = 0; $i < 22; $i++) {
-    echo "城市名 : " . $json['records']['locations'][0]['location'][$i]['locationName'];
+    $city = $json['records']['locations'][0]['location'][$i]['locationName'];
+    echo "城市名 : " .$city;
     // var_dump();// 查詢資料
+    $img = fopen("./images/'$city'.jpeg" ,"rb" );       
+        header("Content-type: image/jpeg"); 
+        fpassthru($img);  
     echo "<br>";
     for ($j = 0; $j < 15; $j++) {
         for($k = 0;$k<14;$k++){
