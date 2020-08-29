@@ -15,7 +15,7 @@ echo "<br>";
             echo "<br>";
         }
 if (isset($_POST["btnOk"])) {
-    $_SESSION['selectCity'] = $_POST["cid"];
+    $_SESSION['selectCity'] = $_POST["selectCity"];
     // echo $cid;
     header("location:current_weather.php");
 
@@ -37,35 +37,35 @@ if (isset($_POST["btnOk"])) {
 
 <body>
     <form method="post">
-        <select name="cid" id="cid" class="form-control">
+        <select name="selectCity" id="selectCity" class="form-control">
             <option value="" disabled="" selected="">選擇縣市</option>
-            <option value="0">雲林縣</option>
-            <option value="1">南投縣</option>
-            <option value="2">連江縣</option>
-            <option value="3">臺東縣</option>
-            <option value="4">金門縣</option>
-            <option value="5">宜蘭縣</option>
-            <option value="6">屏東縣</option>
-            <option value="7">苗栗縣</option>
-            <option value="8">澎湖縣</option>
-            <option value="9">台北市</option>
-            <option value="10">新竹縣</option>
-            <option value="11">花蓮縣</option>
-            <option value="12">高雄市</option>
-            <option value="13">彰化縣</option>
-            <option value="14">新竹市</option>
-            <option value="15">新北市</option>
-            <option value="16">基隆市</option>
-            <option value="17">臺中市</option>
-            <option value="18">臺南市</option>
-            <option value="19">桃園市</option>
-            <option value="20">嘉義縣</option>
-            <option value="21">嘉義市</option>
+            <option value="雲林縣">雲林縣</option>
+            <option value="南投縣">南投縣</option>
+            <option value="連江縣">連江縣</option>
+            <option value="臺東縣">臺東縣</option>
+            <option value="金門縣">金門縣</option>
+            <option value="宜蘭縣">宜蘭縣</option>
+            <option value="屏東縣">屏東縣</option>
+            <option value="苗栗縣">苗栗縣</option>
+            <option value="澎湖縣">澎湖縣</option>
+            <option value="台北市">台北市</option>
+            <option value="新竹縣">新竹縣</option>
+            <option value="花蓮縣">花蓮縣</option>
+            <option value="高雄市">高雄市</option>
+            <option value="彰化縣">彰化縣</option>
+            <option value="新竹市">新竹市</option>
+            <option value="新北市">新北市</option>
+            <option value="基隆市">基隆市</option>
+            <option value="臺中市">臺中市</option>
+            <option value="臺南市">臺南市</option>
+            <option value="桃園市">桃園市</option>
+            <option value="嘉義縣">嘉義縣</option>
+            <option value="嘉義市">嘉義市</option>
         </select>
         <input type="submit" name="btnOk" id="btnOk" value="送出">
-        <td>
+        <!-- <td>
           <a > <img src="/Images/<?= $city ?>.jpg" alt=""></a> 
-        </td>
+        </td> -->
 
     </form>
 </body>
