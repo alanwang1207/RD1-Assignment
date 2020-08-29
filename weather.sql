@@ -1,9 +1,12 @@
+create database test2;
+
+use test2;
+
 CREATE TABLE `currentwt` (
-  `cityName` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `startTime` DATETIME NOT NULL,
-  `endTime` DATETIME NOT NULL,
-  `Wx` varchar(30) collate utf8_unicode_ci NOT NULL,
-  `PoP` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `MinT` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `MaxT` varchar(10) collate utf8_unicode_ci NOT NULL,
-  `CI` varchar(20) collate utf8_unicode_ci NOT NULL,
+  `cityName` varchar(10)  NOT NULL,
+  `Wx` varchar(30)  NOT NULL,
+  `PoP` varchar(10)  NOT NULL,
+  `MinT` varchar(10)  NOT NULL,
+  `MaxT` varchar(10)  NOT NULL,
+  `CI` varchar(20)  NOT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
