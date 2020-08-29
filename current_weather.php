@@ -13,11 +13,11 @@ $url = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/".$api."?Authorization
 $json = file_get_contents($url);  // 把整個文件讀入一個字符串中
 $data = json_decode($json, true);  // 將json轉成陣列或object 
 // var_dump($data);
-$weatherElement = $data['records']['location'][0]['weatherElement'];
+$weatherElement = $data['records']["locations"][0]['location'][0]['weatherElement'];
 // unset($json, $data);
 // var_dump(count($weatherElement));//記錄天氣因子個數
 for($i=0;$i<count($weatherElement);$i++){
-    echo $elementName = $weatherElement[$i]["elementName"];
+    $elementName = $weatherElement[$i]["description"];
     echo "<br>";
     $time = $weatherElement[$i]["time"];
     for($t=0;$t<count($time);$t++){
@@ -25,7 +25,7 @@ for($i=0;$i<count($weatherElement);$i++){
         echo "<br>";
         echo "endTime : ".$endTime = $time[$t]["endTime"];
         echo "<br>";
-        echo "天氣狀況 : ".$parameterName = $time[$t]["parameter"]["parameterName"];
+        echo $elementName." : ".$parameterName = $time[$t]["elementValue"][0]["value"];
         echo "<br>";
 
     }
