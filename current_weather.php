@@ -21,45 +21,29 @@ for ($i = 0; $i < count($weatherElement); $i++) {
     echo "<br>";
     $time = $weatherElement[$i]["time"];
     $parameterName = $time[0]["parameter"]["parameterName"];
+    // echo "startTime : " . $startTime = $time[0]["startTime"];
+    // echo "<br>";
+    // echo "endTime : " . $endTime = $time[0]["endTime"];
+    // echo "<br>";
     switch ($elementName) {
         case "Wx":
             echo "目前天氣狀況 : " . $parameterName;
             echo "<br>";
-            echo "startTime : " . $startTime = $time[0]["startTime"];
-            echo "<br>";
-            echo "endTime : " . $endTime = $time[0]["endTime"];
-            echo "<br>";
             break;
         case "PoP":
-            echo "降雨機率 : " . $parameterName." %";
-            echo "<br>";
-            echo "startTime : " . $startTime = $time[0]["startTime"];
-            echo "<br>";
-            echo "endTime : " . $endTime = $time[0]["endTime"];
+            echo "降雨機率 : " . $parameterName . "%";
             echo "<br>";
             break;
         case "MinT":
-            echo "最低溫度 : " . $parameterName." C";
-            echo "<br>";
-            echo "startTime : " . $startTime = $time[0]["startTime"];
-            echo "<br>";
-            echo "endTime : " . $endTime = $time[0]["endTime"];
+            echo "最低溫度 : " . $parameterName . "°C";
             echo "<br>";
             break;
         case "MaxT":
-            echo "最高溫度 : " . $parameterName." C";
-            echo "<br>";
-            echo "startTime : " . $startTime = $time[0]["startTime"];
-            echo "<br>";
-            echo "endTime : " . $endTime = $time[0]["endTime"];
+            echo "最高溫度 : " . $parameterName . "°C";
             echo "<br>";
             break;
         case "CI":
             echo "舒適度 : " . $parameterName;
-            echo "<br>";
-            echo "startTime : " . $startTime = $time[0]["startTime"];
-            echo "<br>";
-            echo "endTime : " . $endTime = $time[0]["endTime"];
             echo "<br>";
             break;
     }
