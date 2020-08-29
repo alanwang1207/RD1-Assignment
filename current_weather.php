@@ -5,7 +5,7 @@ $cityName = $_SESSION['selectCity'];
 echo $cityName;
 echo "<br>";
 
-$api = "F-C0032-001";
+$api = "F-D0047-089";
 $Authorization = "CWB-20260A47-5D47-474D-AABA-BBC6BC84F310";
 $locationName = urlencode($cityName);
 
