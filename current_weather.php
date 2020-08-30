@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require("./config.php");
 $cityName = $_SESSION['selectCity'];
 echo $cityName;
 echo "<br>";
@@ -42,17 +42,39 @@ for ($i = 0; $i < count($weatherElement); $i++) {
             echo "<br>";
             break;
         case "MaxT":
+            $MaxT = $parameterName;
             echo "最高溫度 : " . $parameterName . "°C";
             echo "<br>";
             break;
         case "CI":
+            $CI = $parameterName;
             echo "舒適度 : " . $parameterName;
             echo "<br>";
             break;
     }
-    
 }
+//查看是否有城市的即時資料
+$sql = <<<sqlstate
+   select * from currentwt where cityName = '$cityName';
+  sqlstate;
+$result = mysqli_query($link, $sql);
+$count = mysqli_num_rows($result);
+if ($count > 0) {
+    $sql = <<<multi
+    update currentwt set
+    Wx = '$Wx',
+    PoP='$PoP',
+    MinT='$MinT',
+    MaxT='$MaxT',
+    CI='$CI'
+    where cityName = '$cityName'
+  multi;
+    mysqli_query($link, $sql);
+} else {
+    $sql = <<<sqlstate
+    insert into currentwt (cityName,Wx,PoP,MinT,MaxT,CI)
+    values('$cityName','$Wx','$PoP','$MinT','$MaxT','$CI')
+  sqlstate;
 
-unset($json, $data);
-
-$Wx = array();
+    mysqli_query($link, $sql);
+}
