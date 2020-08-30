@@ -16,8 +16,8 @@ $data = json_decode($json, true);  // 將json轉成陣列或object
 
 $weatherElement = $data['records']["locations"][0]['location'][0]['weatherElement'];
 //用來判斷開始時間
-$today = date('Y-m-d',strtotime("+1 day"));
-$twoday =  date('Y-m-d',strtotime("+3 day"));
+$today = date('Y-m-d', strtotime("+1 day"));
+$twoday =  date('Y-m-d', strtotime("+3 day"));
 // unset($json, $data);
 // var_dump(count($weatherElement));//記錄天氣因子個數
 for ($i = 0; $i < count($weatherElement); $i++) {
@@ -29,11 +29,11 @@ for ($i = 0; $i < count($weatherElement); $i++) {
     //名稱
     $description = $weatherElement[$i]["description"];
     for ($j = 0; $j < count($time); $j++) {
-        if ($time[$j]["startTime"] > $today && $twoday >$time[$j]["startTime"]) {
+        if ($time[$j]["startTime"] > $today && $twoday > $time[$j]["startTime"]) {
 
             $startTime = $time[$j]["startTime"];
-            echo $startTime;
-            echo "<br>";
+            // echo $startTime;
+            // echo "<br>";
             $elementName = $weatherElement[$i]["elementName"];
 
             $elementValue = $time[$j]["elementValue"][0]["value"];
@@ -58,4 +58,3 @@ for ($i = 0; $i < count($weatherElement); $i++) {
         }
     }
 }
-
