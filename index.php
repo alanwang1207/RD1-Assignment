@@ -9,15 +9,16 @@ $data = json_decode($json, true);  // Decode json data
 global $cid;
 
 $locationName = $data['records']['location'];
-echo "<br>";
-    for ($j = 0; $j < count($locationName); $j++) {
-        echo $locationName[$j]["locationName"];
-            echo "<br>";
-        }
+// echo "<br>";
+//     for ($j = 0; $j < count($locationName); $j++) {
+//         echo $locationName[$j]["locationName"];
+//             echo "<br>";
+//         }
 if (isset($_POST["btnOk"])) {
     $_SESSION['selectCity'] = $_POST["selectCity"];
+    $method = $_POST["selectmethod"];
     // echo $cid;
-    header("location:oneweek_weather.php");
+    header("location:".$method.".php");
 
 }
 
@@ -61,6 +62,13 @@ if (isset($_POST["btnOk"])) {
             <option value="桃園市">桃園市</option>
             <option value="嘉義縣">嘉義縣</option>
             <option value="嘉義市">嘉義市</option>
+        </select>
+        <select name="selectmethod" id="selectmethod" class="form-control">
+            <option value="" disabled="" selected="">選擇查看資料</option>
+            <option value="current_weather">即時</option>
+            <option value="twodays_weather">兩天</option>
+            <option value="oneweek_weather">一週</option>
+            <option value="rainfall">雨量</option>
         </select>
         <input type="submit" name="btnOk" id="btnOk" value="送出">
         <!-- <td>
