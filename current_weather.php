@@ -19,23 +19,26 @@ $weatherElement = $data['records']['location'][0]['weatherElement'];
 for ($i = 0; $i < count($weatherElement); $i++) {
     $elementName = $weatherElement[$i]["elementName"];
     echo "<br>";
-    $time = $weatherElement[$i]["time"];
-    $parameterName = $time[0]["parameter"]["parameterName"];
+    $ntime = $weatherElement[$i]["time"][0];
+    $parameterName = $ntime["parameter"]["parameterName"];
     // echo "startTime : " . $startTime = $time[0]["startTime"];
     // echo "<br>";
     // echo "endTime : " . $endTime = $time[0]["endTime"];
     // echo "<br>";
     switch ($elementName) {
         case "Wx":
-            echo "目前天氣狀況 : " . $parameterName;
+            $Wx = $parameterName;
+            echo "目前天氣狀況 : " . $Wx;
             echo "<br>";
             break;
         case "PoP":
-            echo "降雨機率 : " . $parameterName . "%";
+            $PoP = $parameterName;
+            echo "降雨機率 : " . $PoP . "%";
             echo "<br>";
             break;
         case "MinT":
-            echo "最低溫度 : " . $parameterName . "°C";
+            $MinT = $parameterName;
+            echo "最低溫度 : " . $MinT . "°C";
             echo "<br>";
             break;
         case "MaxT":
@@ -47,6 +50,7 @@ for ($i = 0; $i < count($weatherElement); $i++) {
             echo "<br>";
             break;
     }
+    
 }
 
 unset($json, $data);

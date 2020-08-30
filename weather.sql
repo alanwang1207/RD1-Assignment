@@ -1,6 +1,7 @@
-create database test2;
+create database test2 DEFAULT character set utf8;
 
 use test2;
+
 
 CREATE TABLE `currentwt` (
   `cityName` varchar(10)  NOT NULL,
