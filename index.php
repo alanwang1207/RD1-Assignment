@@ -17,7 +17,7 @@ echo "<br>";
 if (isset($_POST["btnOk"])) {
     $_SESSION['selectCity'] = $_POST["selectCity"];
     // echo $cid;
-    header("location:twodays_weather.php");
+    header("location:oneweek_weather.php");
 
 }
 
