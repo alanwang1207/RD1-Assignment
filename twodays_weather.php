@@ -9,7 +9,7 @@ echo "<br>";
 $sql = <<<sqlstate
             DELETE FROM twodays WHERE cityName='$cityName';
         sqlstate;
-        mysqli_query($link, $sql);
+mysqli_query($link, $sql);
 $resource_id = "F-D0047-089";
 $Authorization = "CWB-20260A47-5D47-474D-AABA-BBC6BC84F310";
 $locationName = urlencode($cityName);
@@ -31,12 +31,17 @@ foreach ($weatherElement[6]['time'] as $key => $value) {
     if ($value["startTime"] > $today && $twoday > $value["startTime"]) {
         $startTime = $value['startTime'];
         $weatherDescription = $value['elementValue'][0]['value'];
+        echo "天氣狀況 : " . $weatherDescription;
+        echo "<br>";
+        echo "startTime : " . $startTime;
+        echo "<br>";
         $sql = <<<sqlstate
                     insert into twodays (cityName,startTime,weatherDescription)
                     values('$cityName','$startTime','$weatherDescription')
                   sqlstate;
         mysqli_query($link, $sql);
     }
+    echo "<br>";
 }
 
 

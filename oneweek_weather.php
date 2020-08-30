@@ -8,7 +8,7 @@ echo "<br>";
 $sql = <<<sqlstate
             DELETE FROM oneweek WHERE cityName='$cityName';
         sqlstate;
-        mysqli_query($link, $sql);
+mysqli_query($link, $sql);
 $resource_id = "F-D0047-091";
 $Authorization = "CWB-20260A47-5D47-474D-AABA-BBC6BC84F310";
 $locationName = urlencode($cityName);
@@ -30,7 +30,10 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
     if ($value["startTime"] > $today) {
         $startTime = $value['startTime'];
         $weatherDescription = $value['elementValue'][0]['value'];
-        
+        echo "天氣狀況 : " . $weatherDescription;
+        echo "<br>";
+        echo "startTime : " . $startTime;
+        echo "<br>";
         $sql = <<<sqlstate
                    
                     insert into oneweek (cityName,startTime,weatherDescription)
@@ -38,4 +41,5 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
                   sqlstate;
         mysqli_query($link, $sql);
     }
+    echo "<br>";
 }
