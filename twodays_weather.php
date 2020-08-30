@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require("./config.php");
 $cityName = $_SESSION['selectCity'];
 echo $cityName;
 echo "<br>";
@@ -15,6 +15,9 @@ $data = json_decode($json, true);  // 將json轉成陣列或object
 // var_dump($data);
 
 $weatherElement = $data['records']["locations"][0]['location'][0]['weatherElement'];
+//用來判斷開始時間
+$today = date('Y-m-d',strtotime("+1 day"));
+$twoday =  date('Y-m-d',strtotime("+3 day"));
 // unset($json, $data);
 // var_dump(count($weatherElement));//記錄天氣因子個數
 for ($i = 0; $i < count($weatherElement); $i++) {
@@ -26,84 +29,33 @@ for ($i = 0; $i < count($weatherElement); $i++) {
     //名稱
     $description = $weatherElement[$i]["description"];
     for ($j = 0; $j < count($time); $j++) {
-        $elementValue = $time[$j]["elementValue"][0]["value"];
-        switch ($elementName) {
-            case "PoP12h":
-                echo $description . " : " . $elementValue . "%";
-                echo "<br>";
-                echo "startTime : " . $startTime = $time[$j]["startTime"];
-                echo "<br>";
-                echo "endTime : " . $endTime = $time[$j]["endTime"];
-                echo "<br>";
-                break;
-            case "Wx":
-                echo $description . " : " . $elementValue;
-                echo "<br>";
-                echo "startTime : " . $startTime = $time[$j]["startTime"];
-                echo "<br>";
-                echo "endTime : " . $endTime = $time[$j]["endTime"];
-                echo "<br>";
-                break;
+        if ($time[$j]["startTime"] > $today && $twoday >$time[$j]["startTime"]) {
 
-            case "AT":
-                echo $description . " : " . $elementValue . "°C";
-                echo "<br>";
-                echo "dataTime : " . $startTime = $time[$j]["dataTime"];
-                echo "<br>";
-                break;
-            case "T":
-                echo $description . " : " . $elementValue . "°C";
-                echo "<br>";
-                echo "dataTime : " . $startTime = $time[$j]["dataTime"];
-                echo "<br>";
-                break;
-            case "RH":
-                echo $description . " : " . $elementValue . "%";
-                echo "<br>";
-                echo "dataTime : " . $startTime = $time[$j]["dataTime"];
-                echo "<br>";
-                break;
-            case "CI":
-                $elementValue = $time[$j]["elementValue"][1]["value"];
-                echo $description . " : " . $elementValue;
-                echo "<br>";
-                echo "dataTime : " . $startTime = $time[$j]["dataTime"];
-                echo "<br>";
-                break;
-            case "WeatherDescription":
-                echo $description . " : " . $elementValue ;
-                echo "<br>";
-                echo "startTime : " . $startTime = $time[$j]["startTime"];
-                echo "<br>";
-                echo "endTime : " . $endTime = $time[$j]["endTime"];
-                echo "<br>";
-                break;
-            case "PoP6h":
-                echo $description . " : " . $elementValue . "%";
-                echo "<br>";
-                echo "startTime : " . $startTime = $time[$j]["startTime"];
-                echo "<br>";
-                echo "endTime : " . $endTime = $time[$j]["endTime"];
-                echo "<br>";
-                break;
-            case "WS":
-                echo $description . " : " . $elementValue . "公尺/秒";
-                echo "<br>";
-                echo "dataTime : " . $startTime = $time[$j]["dataTime"];
-                echo "<br>";
-                break;
-            case "WD":
-                echo $description . " : " . $elementValue . "公尺/秒";
-                echo "<br>";
-                echo "dataTime : " . $startTime = $time[$j]["dataTime"];
-                echo "<br>";
-                break;
-            case "Td":
-                echo $description . " : " . $elementValue . "°C";
-                echo "<br>";
-                echo "dataTime : " . $startTime = $time[$j]["dataTime"];
-                echo "<br>";
-                break;
+            $startTime = $time[$j]["startTime"];
+            echo $startTime;
+            echo "<br>";
+            $elementName = $weatherElement[$i]["elementName"];
+
+            $elementValue = $time[$j]["elementValue"][0]["value"];
+
+            switch ($elementName) {
+                case "WeatherDescription":
+                    $startTime = $time["startTime"];
+                    $elementValue = $time[$j]["elementValue"][0]["value"];
+                    $weatherDescription = $time[$j]["elementValue"][0]["value"];
+                    echo $description . " : " . $weatherDescription;
+                    echo "<br>";
+                    echo "startTime : " . $startTime;
+                    echo "<br>";
+
+                    break;
+            }
+            $sql = <<<sqlstate
+            insert into twodays (cityName,startTime,weatherDescription)
+            values('$cityName','$startTime','$weatherDescription')
+          sqlstate;
+            mysqli_query($link, $sql);
         }
     }
 }
+
