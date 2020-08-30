@@ -20,41 +20,53 @@ $today = date('Y-m-d', strtotime("+1 day"));
 $twoday =  date('Y-m-d', strtotime("+3 day"));
 // unset($json, $data);
 // var_dump(count($weatherElement));//記錄天氣因子個數
-for ($i = 0; $i < count($weatherElement); $i++) {
-    //元素名
-    $elementName = $weatherElement[$i]["elementName"];
-    echo "<br>";
-    //時間
-    $time = $weatherElement[$i]["time"];
-    //名稱
-    $description = $weatherElement[$i]["description"];
-    for ($j = 0; $j < count($time); $j++) {
-        if ($time[$j]["startTime"] > $today && $twoday > $time[$j]["startTime"]) {
 
-            $startTime = $time[$j]["startTime"];
-            // echo $startTime;
-            // echo "<br>";
-            $elementName = $weatherElement[$i]["elementName"];
 
-            $elementValue = $time[$j]["elementValue"][0]["value"];
-
-            switch ($elementName) {
-                case "WeatherDescription":
-                    $startTime = $time["startTime"];
-                    $elementValue = $time[$j]["elementValue"][0]["value"];
-                    $weatherDescription = $time[$j]["elementValue"][0]["value"];
-                    echo $description . " : " . $weatherDescription;
-                    echo "<br>";
-                    echo "startTime : " . $startTime;
-                    echo "<br>";
-
-                    break;
-            }
-            $sql = <<<sqlstate
-            insert into twodays (cityName,startTime,weatherDescription)
-            values('$cityName','$startTime','$weatherDescription')
-          sqlstate;
-            mysqli_query($link, $sql);
-        }
+foreach ($weatherElement[6]['time'] as $key => $value) {
+    if ($value["startTime"] > $today && $twoday > $value["startTime"]) {
+        $startTime = $value['startTime'];
+        $weatherDescription = $value['elementValue'][0]['value'];
+        $sql = <<<sqlstate
+                    insert into twodays (cityName,startTime,weatherDescription)
+                    values('$cityName','$startTime','$weatherDescription')
+                  sqlstate;
+        mysqli_query($link, $sql);
     }
 }
+
+
+// for ($i = 0; $i < count($weatherElement); $i++) {
+//     //元素名
+//     $elementName = $weatherElement[$i]["elementName"];
+//     echo "<br>";
+//     //時間
+//     $time = $weatherElement[$i]["time"];
+//     //名稱
+//     $description = $weatherElement[$i]["description"];
+//     for ($j = 0; $j < count($time); $j++) {
+//         if ($time[$j]["startTime"] > $today && $twoday > $time[$j]["startTime"] ) {
+
+//             $startTime = $time[$j]["startTime"];
+//             // echo $startTime;
+//             // echo "<br>";
+//             $elementName = $weatherElement[$i]["elementName"];
+//             switch ($elementName) {
+//                 case "WeatherDescription":
+//                     $startTime = $time["startTime"];
+//                     $elementValue = $time[$j]["elementValue"][0]["value"];
+//                     $weatherDescription = $time[$j]["elementValue"][0]["value"];
+//                     echo $description . " : " . $weatherDescription;
+//                     echo "<br>";
+//                     echo "startTime : " . $startTime;
+//                     echo "<br>";
+
+//                     break;
+//             }
+//             $sql = <<<sqlstate
+//             insert into twodays (cityName,startTime,weatherDescription)
+//             values('$cityName','$startTime','$weatherDescription')
+//           sqlstate;
+//             mysqli_query($link, $sql);
+//         }
+//     }
+// }
