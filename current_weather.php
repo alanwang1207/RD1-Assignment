@@ -5,6 +5,12 @@ $cityName = $_SESSION['selectCity'];
 echo $cityName;
 echo "<br>";
 
+//清空資料表欄位
+$sql = <<<sqlstate
+            DELETE FROM currentwt WHERE cityName='$cityName';
+        sqlstate;
+mysqli_query($link, $sql);
+
 $resource_id = "F-C0032-001";
 $Authorization = "CWB-20260A47-5D47-474D-AABA-BBC6BC84F310";
 $locationName = urlencode($cityName);
@@ -53,28 +59,39 @@ for ($i = 0; $i < count($weatherElement); $i++) {
             break;
     }
 }
-//查看是否有城市的即時資料
+
 $sql = <<<sqlstate
-   select * from currentwt where cityName = '$cityName';
-  sqlstate;
-$result = mysqli_query($link, $sql);
-$count = mysqli_num_rows($result);
-if ($count > 0) {
-    $sql = <<<multi
-    update currentwt set
-    Wx = '$Wx',
-    PoP='$PoP',
-    MinT='$MinT',
-    MaxT='$MaxT',
-    CI='$CI'
-    where cityName = '$cityName'
-  multi;
-    mysqli_query($link, $sql);
-} else {
-    $sql = <<<sqlstate
     insert into currentwt (cityName,Wx,PoP,MinT,MaxT,CI)
     values('$cityName','$Wx','$PoP','$MinT','$MaxT','$CI')
   sqlstate;
 
-    mysqli_query($link, $sql);
-}
+mysqli_query($link, $sql);
+
+
+
+
+// //查看是否有城市的即時資料
+// $sql = <<<sqlstate
+//    select * from currentwt where cityName = '$cityName';
+//   sqlstate;
+// $result = mysqli_query($link, $sql);
+// $count = mysqli_num_rows($result);
+// if ($count > 0) {
+//     $sql = <<<multi
+//     update currentwt set
+//     Wx = '$Wx',
+//     PoP='$PoP',
+//     MinT='$MinT',
+//     MaxT='$MaxT',
+//     CI='$CI'
+//     where cityName = '$cityName'
+//   multi;
+//     mysqli_query($link, $sql);
+// } else {
+//     $sql = <<<sqlstate
+//     insert into currentwt (cityName,Wx,PoP,MinT,MaxT,CI)
+//     values('$cityName','$Wx','$PoP','$MinT','$MaxT','$CI')
+//   sqlstate;
+
+//     mysqli_query($link, $sql);
+// }

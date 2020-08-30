@@ -5,6 +5,11 @@ $cityName = $_SESSION['selectCity'];
 echo $cityName;
 echo "<br>";
 
+//清空資料表欄位
+$sql = <<<sqlstate
+            DELETE FROM twodays WHERE cityName='$cityName';
+        sqlstate;
+        mysqli_query($link, $sql);
 $resource_id = "F-D0047-089";
 $Authorization = "CWB-20260A47-5D47-474D-AABA-BBC6BC84F310";
 $locationName = urlencode($cityName);
