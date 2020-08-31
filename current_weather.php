@@ -2,8 +2,8 @@
 session_start();
 require("./config.php");
 $cityName = $_SESSION['selectCity'];
-echo $cityName;
-echo "<br>";
+// echo $cityName;
+// echo "<br>";
 
 //清空資料表欄位
 $sql = <<<sqlstate
@@ -24,7 +24,7 @@ $weatherElement = $data['records']['location'][0]['weatherElement'];
 // var_dump(count($weatherElement));//記錄天氣因子個數
 for ($i = 0; $i < count($weatherElement); $i++) {
     $elementName = $weatherElement[$i]["elementName"];
-    echo "<br>";
+    // echo "<br>";
     $ntime = $weatherElement[$i]["time"][0];
     $parameterName = $ntime["parameter"]["parameterName"];
     // echo "startTime : " . $startTime = $time[0]["startTime"];
@@ -34,28 +34,28 @@ for ($i = 0; $i < count($weatherElement); $i++) {
     switch ($elementName) {
         case "Wx":
             $Wx = $parameterName;
-            echo "目前天氣狀況 : " . $Wx;
-            echo "<br>";
+            // echo "目前天氣狀況 : " . $Wx;
+            // echo "<br>";
             break;
         case "PoP":
             $PoP = $parameterName;
-            echo "降雨機率 : " . $PoP . "%";
-            echo "<br>";
+            // echo "降雨機率 : " . $PoP . "%";
+            // echo "<br>";
             break;
         case "MinT":
             $MinT = $parameterName;
-            echo "最低溫度 : " . $MinT . "°C";
-            echo "<br>";
+            // echo "最低溫度 : " . $MinT . "°C";
+            // echo "<br>";
             break;
         case "MaxT":
             $MaxT = $parameterName;
-            echo "最高溫度 : " . $parameterName . "°C";
-            echo "<br>";
+            // echo "最高溫度 : " . $parameterName . "°C";
+            // echo "<br>";
             break;
         case "CI":
             $CI = $parameterName;
-            echo "舒適度 : " . $parameterName;
-            echo "<br>";
+            // echo "舒適度 : " . $parameterName;
+            // echo "<br>";
             break;
     }
 }
@@ -67,18 +67,34 @@ $sql = <<<sqlstate
 
 mysqli_query($link, $sql);
 
-
+$sql = <<<sqlstate
+    select * from currentwt where cityName = '$cityName';
+sqlstate;
+$currentwt = mysqli_query($link, $sql);
 
 ?>
+
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <img src="./Images/icon/cloud.png" alt="多雲" width="150px" height="150px">
-</body>
-</html>
 
+<body>
+<?php while ($row = mysqli_fetch_assoc($result)) { ?>
+            <tr>
+                <td><?= $row["cityName"] ?></td>
+                <td><?= $row["Wx"] ?></td>
+                <td><?= $row["PoP"] ?></td>
+                <td><?= $row["MinT"] ?></td>
+                <td><?= $row["MaxT"] ?></td>
+                <td><?= $row["CI"] ?></td>
+            </tr>
+        <?php } ?>
+</body>
+
+</html> -->

@@ -18,9 +18,9 @@ if (isset($_POST["btnOk"])) {
     $_SESSION['selectCity'] = $_POST["selectCity"];
     $method = $_POST["selectmethod"];
     // echo $cid;
-    require($method.".php");
+    require($method . ".php");
     // header("location:".$method.".php");
-    
+
 
 }
 
@@ -73,9 +73,32 @@ if (isset($_POST["btnOk"])) {
             <option value="rainfall">雨量</option>
         </select>
         <input type="submit" name="btnOk" id="btnOk" value="送出">
+        <!-- 即時天氣 -->
+        <table>
+            <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
 
-
-
+                <tr class=".container">
+                    <div>
+                    城市名：<?= $row["cityName"] ?>
+                    </div>
+                    <div>
+                    天氣狀況：<?= $row["Wx"] ?>
+                    </div>
+                    <div>
+                    降雨機率：<?= $row["PoP"] ?>%
+                    </div>
+                    <div>
+                    最低溫：<?= $row["MinT"] ?>°C
+                    </div>
+                    <div>
+                    最高溫：<?= $row["MaxT"] ?>°C
+                    </div>
+                    <div>
+                    舒適度：<?= $row["CI"] ?>
+                    </div>
+                </tr>
+            <?php } ?>
+        </table>
 
     </form>
 </body>
