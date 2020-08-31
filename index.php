@@ -143,7 +143,10 @@ if (isset($_POST["btnOk"])) {
                         天氣狀況：<?= $row["Wx"] ?>
                     </div>
                     <div>
-                        <?= $row["PoP"] ?>
+                        <?php if ($row["PoP"] == '-1') : ?>
+                        <?php else : ?>
+                            <?= $row["PoP"] ?>
+                        <?php endif; ?>
                     </div>
                     <div>
                         溫度：<?= $row["T"] ?>
