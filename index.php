@@ -113,16 +113,16 @@ if (isset($_POST["btnOk"])) {
                         天氣狀況：<?= $row["Wx"] ?>
                     </div>
                     <div>
-                        降雨機率：<?= $row["PoP"] ?>%
+                        <?= $row["PoP"] ?>
                     </div>
                     <div>
-                        溫度：<?= $row["T"] ?>°C
+                        <?= $row["T"] ?>
                     </div>
                     <div>
                         舒適度：<?= $row["CI"] ?>
                     </div>
                     <div>
-                        濕度：<?= $row["RH"] ?>％
+                        <?= $row["RH"] ?>
                     </div>
                     <div>
                         <?= $row["startTime"] ?>

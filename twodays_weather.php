@@ -2,8 +2,6 @@
 session_start();
 require("./config.php");
 $cityName = $_SESSION['selectCity'];
-echo $cityName;
-echo "<br>";
 
 //清空資料表欄位
 $sql = <<<sqlstate
