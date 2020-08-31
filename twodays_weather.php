@@ -37,28 +37,31 @@ foreach ($weatherElement[6]['time'] as $key => $value) {
         $T = $weatherDescription[2];
         $CI = $weatherDescription[3];
         $RH = $weatherDescription[5];
-        echo "天氣狀況：" . $Wx;
-        echo "<br>";
-        echo $PoP;
-        echo "<br>";
-        echo $T;
-        echo "<br>";
-        echo "舒適度：" . $CI;
-        echo "<br>";
-        echo $RH;
-        echo "<br>";
-        echo "開始時間 : " . $startTime;
-        echo "<br>";
+        // echo "天氣狀況：" . $Wx;
+        // echo "<br>";
+        // echo $PoP;
+        // echo "<br>";
+        // echo $T;
+        // echo "<br>";
+        // echo "舒適度：" . $CI;
+        // echo "<br>";
+        // echo $RH;
+        // echo "<br>";
+        // echo "開始時間 : " . $startTime;
+        // echo "<br>";
         $sql = <<<sqlstate
                     insert into twodays (cityName,Wx,PoP,T,CI,RH,startTime)
                     values('$cityName','$Wx','$PoP','$T','$CI','$RH','$startTime')
                   sqlstate;
         mysqli_query($link, $sql);
-        echo "<br>";
+        // echo "<br>";
     }
 }
 
-
+$sql = <<<sqlstate
+    select * from twodays where cityName = '$cityName';
+sqlstate;
+$twodays = mysqli_query($link, $sql);
 
 
 
@@ -186,3 +189,4 @@ foreach ($weatherElement[6]['time'] as $key => $value) {
 //         }
 //     }
 // }
+?>

@@ -100,6 +100,37 @@ if (isset($_POST["btnOk"])) {
             <?php } ?>
         </table>
 
+
+         <!-- 未來兩天 -->
+         <table>
+            <?php while ($row = mysqli_fetch_assoc($twodays)) { ?>
+
+                <tr class=".container">
+                    <div>
+                    城市名：<?= $row["cityName"] ?>
+                    </div>
+                    <div>
+                    天氣狀況：<?= $row["Wx"] ?>
+                    </div>
+                    <div>
+                    降雨機率：<?= $row["PoP"] ?>%
+                    </div>
+                    <div>
+                    溫度：<?= $row["T"] ?>°C
+                    </div>
+                    <div>
+                    舒適度：<?= $row["CI"] ?>
+                    </div>
+                    <div>
+                    濕度：<?= $row["RH"] ?>％
+                    </div>
+                    <div>
+                    <?= $row["startTime"] ?>
+                    </div>
+                </tr>
+            <?php } ?>
+        </table>
+
     </form>
 </body>
 
