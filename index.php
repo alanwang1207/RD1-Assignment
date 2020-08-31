@@ -15,6 +15,7 @@ $locationName = $data['records']['location'];
 //             echo "<br>";
 //         }
 if (isset($_POST["btnOk"])) {
+    $cityi = $_POST["selectCity"];
     $_SESSION['selectCity'] = $_POST["selectCity"];
     $method = $_POST["selectmethod"];
     // echo $cid;
@@ -75,12 +76,15 @@ if (isset($_POST["btnOk"])) {
         <input type="submit" name="btnOk" id="btnOk" value="送出">
         <!-- 即時天氣 -->
         <table>
+            <div>
+                城市名：<?= $_POST["selectCity"] ?>
+               
+            </div>
+            <br>
             <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
 
                 <tr class=".container">
-                    <div>
-                        城市名：<?= $row["cityName"] ?>
-                    </div>
+
                     <div>
                         天氣狀況：<?= $row["Wx"] ?>
                     </div>
@@ -96,6 +100,10 @@ if (isset($_POST["btnOk"])) {
                     <div>
                         舒適度：<?= $row["CI"] ?>
                     </div>
+                    <div>
+                        <img src="<?= "Images/".$_POST["selectCity"].".jpg"  ?>" alt="">
+                    </div>
+                    <br>
                 </tr>
             <?php } ?>
         </table>
@@ -106,9 +114,7 @@ if (isset($_POST["btnOk"])) {
             <?php while ($row = mysqli_fetch_assoc($twodays)) { ?>
 
                 <tr class=".container">
-                    <div>
-                        城市名：<?= $row["cityName"] ?>
-                    </div>
+
                     <div>
                         天氣狀況：<?= $row["Wx"] ?>
                     </div>
@@ -127,14 +133,12 @@ if (isset($_POST["btnOk"])) {
                     <div>
                         <?= $row["startTime"] ?>
                     </div>
+                    <br>
                 </tr>
             <?php } ?>
         </table>
         <!-- 未來一週 -->
         <table>
-            <div>
-                城市名：<?= $_POST["selectCity"] ?>
-            </div>
             <?php while ($row = mysqli_fetch_assoc($oneweek)) { ?>
 
                 <tr class=".container">
