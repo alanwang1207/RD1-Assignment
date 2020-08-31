@@ -31,31 +31,31 @@ foreach ($weatherElement[6]['time'] as $key => $value) {
     if ($value["startTime"] > $today && $twoday > $value["startTime"]) {
         $startTime = $value['startTime'];
         $weatherDescription = $value['elementValue'][0]['value'];
-        $weatherDescription = explode("。",$weatherDescription);
+        $weatherDescription = explode("。", $weatherDescription);
         $Wx = $weatherDescription[0];
         $PoP = $weatherDescription[1];
         $T = $weatherDescription[2];
         $CI = $weatherDescription[3];
         $RH = $weatherDescription[5];
-        echo "天氣狀況：".$Wx;
+        echo "天氣狀況：" . $Wx;
         echo "<br>";
         echo $PoP;
         echo "<br>";
         echo $T;
         echo "<br>";
-        echo "舒適度：".$CI;
+        echo "舒適度：" . $CI;
         echo "<br>";
         echo $RH;
         echo "<br>";
         echo "開始時間 : " . $startTime;
         echo "<br>";
-        // $sql = <<<sqlstate
-        //             insert into twodays (cityName,startTime,weatherDescription)
-        //             values('$cityName','$startTime','$weatherDescription')
-        //           sqlstate;
-        // mysqli_query($link, $sql);
+        $sql = <<<sqlstate
+                    insert into twodays (cityName,Wx,PoP,T,CI,RH,startTime)
+                    values('$cityName','$Wx','$PoP','$T','$CI','$RH','$startTime')
+                  sqlstate;
+        mysqli_query($link, $sql);
+        echo "<br>";
     }
-    echo "<br>";
 }
 
 
@@ -120,14 +120,13 @@ foreach ($weatherElement[6]['time'] as $key => $value) {
 //                     break;
 //             }
 //         }
-
-//         echo "<br>";
-//         $sql = <<<sqlstate
+//     }
+//     echo "<br>";
+//     $sql = <<<sqlstate
 //         insert into twodays (cityName,startTime,PoP12h,Wx)
 //         values('$cityName','$startTime','$PoP3h','$Wx')
 //       sqlstate;
-//         mysqli_query($link, $sql);
-//     }
+//     mysqli_query($link, $sql);
 // }
 
 

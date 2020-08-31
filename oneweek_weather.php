@@ -37,26 +37,26 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
             $PoP = $weatherDescription[1];
             $T = $weatherDescription[2];
             $CI = $weatherDescription[3];
+            $RH = $weatherDescription[5];
+            $sql = <<<sqlstate
+                    insert into oneweek (cityName,Wx,PoP,T,CI,RH,startTime)
+                    values('$cityName','$Wx','$PoP','$T','$CI','$RH','$startTime')
+                  sqlstate;
+        mysqli_query($link, $sql);
             echo $PoP . "<br>";
         } else {
             $T = $weatherDescription[1];
             $CI = $weatherDescription[2];
+            $RH = $weatherDescription[4];
+            $sql = <<<sqlstate
+                    insert into oneweek (cityName,Wx,PoP,T,CI,RH,startTime)
+                    values('$cityName','$Wx','0','$T','$CI','$RH','$startTime')
+                  sqlstate;
+        mysqli_query($link, $sql);
         }
         echo $T . "<br>";
         echo "舒適度：" . $CI . "<br>";
         echo "開始時間 : " . $startTime . "<br>";
-        // echo "天氣狀況：" . $Wx . "<br>";
-        // echo $PoP . "<br>";
-        // echo $T . "<br>";
-        // echo "舒適度：" . $CI . "<br>";
-        // echo "開始時間 : " . $startTime . "<br>";
-
-        // $sql = <<<sqlstate
-
-        //             insert into oneweek (cityName,startTime,weatherDescription)
-        //             values('$cityName','$startTime','$weatherDescription')
-        //           sqlstate;
-        // mysqli_query($link, $sql);
     }
     echo "<br>";
 }
