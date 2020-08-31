@@ -48,7 +48,7 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
             $RH = $weatherDescription[4];
             $sql = <<<sqlstate
                     insert into oneweek (cityName,Wx,PoP,T,CI,RH,startTime)
-                    values('$cityName','$Wx','0','$T','$CI','$RH','$startTime')
+                    values('$cityName','$Wx','-1','$T','$CI','$RH','$startTime')
                   sqlstate;
         mysqli_query($link, $sql);
         }
