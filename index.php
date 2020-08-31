@@ -18,7 +18,9 @@ if (isset($_POST["btnOk"])) {
     $_SESSION['selectCity'] = $_POST["selectCity"];
     $method = $_POST["selectmethod"];
     // echo $cid;
-    header("location:".$method.".php");
+    require($method.".php");
+    // header("location:".$method.".php");
+    
 
 }
 
@@ -71,9 +73,9 @@ if (isset($_POST["btnOk"])) {
             <option value="rainfall">雨量</option>
         </select>
         <input type="submit" name="btnOk" id="btnOk" value="送出">
-        <!-- <td>
-          <a > <img src="/Images/<?= $city ?>.jpg" alt=""></a> 
-        </td> -->
+
+
+
 
     </form>
 </body>

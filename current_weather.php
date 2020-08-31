@@ -69,29 +69,16 @@ mysqli_query($link, $sql);
 
 
 
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="./Images/icon/cloud.png" alt="多雲" width="150px" height="150px">
+</body>
+</html>
 
-// //查看是否有城市的即時資料
-// $sql = <<<sqlstate
-//    select * from currentwt where cityName = '$cityName';
-//   sqlstate;
-// $result = mysqli_query($link, $sql);
-// $count = mysqli_num_rows($result);
-// if ($count > 0) {
-//     $sql = <<<multi
-//     update currentwt set
-//     Wx = '$Wx',
-//     PoP='$PoP',
-//     MinT='$MinT',
-//     MaxT='$MaxT',
-//     CI='$CI'
-//     where cityName = '$cityName'
-//   multi;
-//     mysqli_query($link, $sql);
-// } else {
-//     $sql = <<<sqlstate
-//     insert into currentwt (cityName,Wx,PoP,MinT,MaxT,CI)
-//     values('$cityName','$Wx','$PoP','$MinT','$MaxT','$CI')
-//   sqlstate;
-
-//     mysqli_query($link, $sql);
-// }
