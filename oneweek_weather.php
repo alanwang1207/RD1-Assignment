@@ -30,16 +30,33 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
     if ($value["startTime"] > $today) {
         $startTime = $value['startTime'];
         $weatherDescription = $value['elementValue'][0]['value'];
-        echo "天氣狀況 : " . $weatherDescription;
-        echo "<br>";
-        echo "startTime : " . $startTime;
-        echo "<br>";
-        $sql = <<<sqlstate
-                   
-                    insert into oneweek (cityName,startTime,weatherDescription)
-                    values('$cityName','$startTime','$weatherDescription')
-                  sqlstate;
-        mysqli_query($link, $sql);
+        $weatherDescription = explode("。", $weatherDescription);
+        $Wx = $weatherDescription[0];
+        echo "天氣狀況：" . $Wx . "<br>";
+        if (count($weatherDescription) > 6) {
+            $PoP = $weatherDescription[1];
+            $T = $weatherDescription[2];
+            $CI = $weatherDescription[3];
+            echo $PoP . "<br>";
+        } else {
+            $T = $weatherDescription[1];
+            $CI = $weatherDescription[2];
+        }
+        echo $T . "<br>";
+        echo "舒適度：" . $CI . "<br>";
+        echo "開始時間 : " . $startTime . "<br>";
+        // echo "天氣狀況：" . $Wx . "<br>";
+        // echo $PoP . "<br>";
+        // echo $T . "<br>";
+        // echo "舒適度：" . $CI . "<br>";
+        // echo "開始時間 : " . $startTime . "<br>";
+
+        // $sql = <<<sqlstate
+
+        //             insert into oneweek (cityName,startTime,weatherDescription)
+        //             values('$cityName','$startTime','$weatherDescription')
+        //           sqlstate;
+        // mysqli_query($link, $sql);
     }
     echo "<br>";
 }
