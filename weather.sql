@@ -28,5 +28,5 @@ CREATE TABLE `rainfall` (
   `locationName` varchar(10)  NOT NULL,
   `city` varchar(10)  NOT NULL,
   `onehour` varchar(20)  NOT NULL,
-  `HOUR_24` varchar(20)  NOT NULL,
+  `HOUR_24` varchar(20)  NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

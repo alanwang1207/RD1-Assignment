@@ -49,7 +49,7 @@ if (isset($_POST["btnOk"])) {
             <option value="屏東縣">屏東縣</option>
             <option value="苗栗縣">苗栗縣</option>
             <option value="澎湖縣">澎湖縣</option>
-            <option value="台北市">台北市</option>
+            <option value="臺北市">臺北市</option>
             <option value="新竹縣">新竹縣</option>
             <option value="花蓮縣">花蓮縣</option>
             <option value="高雄市">高雄市</option>
