@@ -43,12 +43,12 @@ if (isset($_POST["btnOk"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-        
+
     </style>
 </head>
 
 
-<body class="bg-success">
+<body >
 
     <div class="p-3 mb-2 bg-primary text-white">
         <h1 class="text-light">RD1-氣象網</h1>
@@ -88,13 +88,14 @@ if (isset($_POST["btnOk"])) {
         </select>
         <input type="submit" name="btnOk" id="btnOk" value="送出">
         <!-- 即時天氣 -->
-        <table style="text-align:center">
-            <div style="text-align:center">
+        <div>
+            <img src="<?= "Images/" . $_POST["selectCity"] . ".jpg"  ?>" alt="" width="600" height="400" class="img-thumbnail rounded float-right">
+        </div>
+        <div id="box1" class="text-center col card box-margins" style="width: 18rem;">
+            <div class="box-body">
                 城市名：<?= $_POST["selectCity"] ?>
             </div>
-            <div>
-                <img src="<?= "Images/" . $_POST["selectCity"] . ".jpg"  ?>" alt="" width="600" height="400" class="img-thumbnail rounded float-right">
-            </div>
+
             <br>
             <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
 
@@ -115,74 +116,74 @@ if (isset($_POST["btnOk"])) {
                     <div>
                         舒適度：<?= $row["CI"] ?>
                     </div>
-
-                    <br>
+                    <div>
+                        <br>
                 </tr>
             <?php } ?>
-        </table>
 
+            <!-- <di -->
 
-        <!-- 未來兩天 -->
-        <table>
-            <?php while ($row = mysqli_fetch_assoc($twodays)) { ?>
+            <!-- 未來兩天 -->
+            <table>
+                <?php while ($row = mysqli_fetch_assoc($twodays)) { ?>
 
-                <tr class=".container">
+                    <tr class=".container">
 
-                    <div>
-                        天氣狀況：<?= $row["Wx"] ?>
-                    </div>
-                    <div>
-                        <?= $row["PoP"] ?>
-                    </div>
-                    <div>
-                        <?= $row["T"] ?>
-                    </div>
-                    <div>
-                        舒適度：<?= $row["CI"] ?>
-                    </div>
-                    <div>
-                        <?= $row["RH"] ?>
-                    </div>
-                    <div>
-                        <?= $row["startTime"] ?>
-                    </div>
-
-                    <br>
-                </tr>
-            <?php } ?>
-        </table>
-        <!-- 未來一週 -->
-        <table>
-            <?php while ($row = mysqli_fetch_assoc($oneweek)) { ?>
-
-                <tr class=".container">
-
-                    <div>
-                        天氣狀況：<?= $row["Wx"] ?>
-                    </div>
-                    <div>
-                        <?php if ($row["PoP"] == '-1') : ?>
-                        <?php else : ?>
+                        <div>
+                            天氣狀況：<?= $row["Wx"] ?>
+                        </div>
+                        <div>
                             <?= $row["PoP"] ?>
-                        <?php endif; ?>
-                    </div>
-                    <div>
-                        溫度：<?= $row["T"] ?>
-                    </div>
-                    <div>
-                        舒適度：<?= $row["CI"] ?>
-                    </div>
-                    <div>
-                        濕度：<?= $row["RH"] ?>
-                    </div>
-                    <div>
-                        <?= $row["startTime"] ?>
-                    </div>
+                        </div>
+                        <div>
+                            <?= $row["T"] ?>
+                        </div>
+                        <div>
+                            舒適度：<?= $row["CI"] ?>
+                        </div>
+                        <div>
+                            <?= $row["RH"] ?>
+                        </div>
+                        <div>
+                            <?= $row["startTime"] ?>
+                        </div>
 
-                    <br>
-                </tr>
-            <?php } ?>
-        </table>
+                        <br>
+                    </tr>
+                <?php } ?>
+            </table>
+            <!-- 未來一週 -->
+            <table>
+                <?php while ($row = mysqli_fetch_assoc($oneweek)) { ?>
+
+                    <tr class=".container">
+
+                        <div>
+                            天氣狀況：<?= $row["Wx"] ?>
+                        </div>
+                        <div>
+                            <?php if ($row["PoP"] == '-1') : ?>
+                            <?php else : ?>
+                                <?= $row["PoP"] ?>
+                            <?php endif; ?>
+                        </div>
+                        <div>
+                            溫度：<?= $row["T"] ?>
+                        </div>
+                        <div>
+                            舒適度：<?= $row["CI"] ?>
+                        </div>
+                        <div>
+                            濕度：<?= $row["RH"] ?>
+                        </div>
+                        <div>
+                            <?= $row["startTime"] ?>
+                        </div>
+
+                        <br>
+                    </tr>
+                <?php } ?>
+            </table>
     </form>
 </body>
 
