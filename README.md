@@ -21,3 +21,9 @@ ci
 maxt
 
 使用者選擇縣市後 開始抓資料 先丟到陣列 再丟進資料庫 接著讀出來
+
+RAIN 1小時
+HOUR_24 ２４小時
+
+records location [i] parameter [0] [parameterValue] = 城市名
+[records] [location] [i] [parameter] [4] [parameterValue] = 中央氣象局
