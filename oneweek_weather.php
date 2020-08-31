@@ -2,8 +2,6 @@
 session_start();
 require("./config.php");
 $cityName = $_SESSION['selectCity'];
-echo $cityName;
-echo "<br>";
 //清空資料表欄位
 $sql = <<<sqlstate
             DELETE FROM oneweek WHERE cityName='$cityName';
@@ -32,7 +30,7 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
         $weatherDescription = $value['elementValue'][0]['value'];
         $weatherDescription = explode("。", $weatherDescription);
         $Wx = $weatherDescription[0];
-        echo "天氣狀況：" . $Wx . "<br>";
+        // echo "天氣狀況：" . $Wx . "<br>";
         if (count($weatherDescription) > 6) {
             $PoP = $weatherDescription[1];
             $T = $weatherDescription[2];
@@ -43,7 +41,7 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
                     values('$cityName','$Wx','$PoP','$T','$CI','$RH','$startTime')
                   sqlstate;
         mysqli_query($link, $sql);
-            echo $PoP . "<br>";
+            // echo $PoP . "<br>";
         } else {
             $T = $weatherDescription[1];
             $CI = $weatherDescription[2];
@@ -54,9 +52,14 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
                   sqlstate;
         mysqli_query($link, $sql);
         }
-        echo $T . "<br>";
-        echo "舒適度：" . $CI . "<br>";
-        echo "開始時間 : " . $startTime . "<br>";
+        // echo $T . "<br>";
+        // echo "舒適度：" . $CI . "<br>";
+        // echo "開始時間 : " . $startTime . "<br>";
     }
-    echo "<br>";
+    // echo "<br>";
 }
+
+$sql = <<<sqlstate
+    select * from oneweek where cityName = '$cityName';
+sqlstate;
+$oneweek = mysqli_query($link, $sql);

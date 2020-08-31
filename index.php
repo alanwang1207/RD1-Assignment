@@ -79,58 +79,88 @@ if (isset($_POST["btnOk"])) {
 
                 <tr class=".container">
                     <div>
-                    城市名：<?= $row["cityName"] ?>
+                        城市名：<?= $row["cityName"] ?>
                     </div>
                     <div>
-                    天氣狀況：<?= $row["Wx"] ?>
+                        天氣狀況：<?= $row["Wx"] ?>
                     </div>
                     <div>
-                    降雨機率：<?= $row["PoP"] ?>%
+                        降雨機率：<?= $row["PoP"] ?>%
                     </div>
                     <div>
-                    最低溫：<?= $row["MinT"] ?>°C
+                        最低溫：<?= $row["MinT"] ?>°C
                     </div>
                     <div>
-                    最高溫：<?= $row["MaxT"] ?>°C
+                        最高溫：<?= $row["MaxT"] ?>°C
                     </div>
                     <div>
-                    舒適度：<?= $row["CI"] ?>
+                        舒適度：<?= $row["CI"] ?>
                     </div>
                 </tr>
             <?php } ?>
         </table>
 
 
-         <!-- 未來兩天 -->
-         <table>
+        <!-- 未來兩天 -->
+        <table>
             <?php while ($row = mysqli_fetch_assoc($twodays)) { ?>
 
                 <tr class=".container">
                     <div>
-                    城市名：<?= $row["cityName"] ?>
+                        城市名：<?= $row["cityName"] ?>
                     </div>
                     <div>
-                    天氣狀況：<?= $row["Wx"] ?>
+                        天氣狀況：<?= $row["Wx"] ?>
                     </div>
                     <div>
-                    降雨機率：<?= $row["PoP"] ?>%
+                        降雨機率：<?= $row["PoP"] ?>%
                     </div>
                     <div>
-                    溫度：<?= $row["T"] ?>°C
+                        溫度：<?= $row["T"] ?>°C
                     </div>
                     <div>
-                    舒適度：<?= $row["CI"] ?>
+                        舒適度：<?= $row["CI"] ?>
                     </div>
                     <div>
-                    濕度：<?= $row["RH"] ?>％
+                        濕度：<?= $row["RH"] ?>％
                     </div>
                     <div>
-                    <?= $row["startTime"] ?>
+                        <?= $row["startTime"] ?>
                     </div>
                 </tr>
             <?php } ?>
         </table>
+        <!-- 未來一週 -->
+        <table>
+            <div>
+                城市名：<?= $_POST["selectCity"] ?>
+            </div>
+            <?php while ($row = mysqli_fetch_assoc($oneweek)) { ?>
 
+                <tr class=".container">
+
+                    <div>
+                        天氣狀況：<?= $row["Wx"] ?>
+                    </div>
+                    <div>
+                        <?= $row["PoP"] ?>
+                    </div>
+                    <div>
+                        溫度：<?= $row["T"] ?>
+                    </div>
+                    <div>
+                        舒適度：<?= $row["CI"] ?>
+                    </div>
+                    <div>
+                        濕度：<?= $row["RH"] ?>
+                    </div>
+                    <div>
+                        <?= $row["startTime"] ?>
+                    </div>
+                    <br>
+                </tr>
+            <?php } ?>
+        </table>
     </form>
 </body>
 
