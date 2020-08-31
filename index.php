@@ -36,12 +36,25 @@ if (isset($_POST["btnOk"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RD1-氣象網</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        
+    </style>
 </head>
 
-<body>
+
+<body class="bg-success">
+
+    <div class="p-3 mb-2 bg-primary text-white">
+        <h1 class="text-light">RD1-氣象網</h1>
+    </div>
     <form method="post">
-        <select name="selectCity" id="selectCity" class="form-control">
+        <select name="selectCity" id="selectCity" style="width: 200px" class="browser-default custom-select">
             <option value="" disabled="" selected="">選擇縣市</option>
             <option value="雲林縣">雲林縣</option>
             <option value="南投縣">南投縣</option>
@@ -66,7 +79,7 @@ if (isset($_POST["btnOk"])) {
             <option value="嘉義縣">嘉義縣</option>
             <option value="嘉義市">嘉義市</option>
         </select>
-        <select name="selectmethod" id="selectmethod" class="form-control">
+        <select name="selectmethod" id="selectmethod" style="width: 200px" class="browser-default custom-select">
             <option value="" disabled="" selected="">選擇查看資料</option>
             <option value="current_weather">即時</option>
             <option value="twodays_weather">兩天</option>
@@ -75,10 +88,12 @@ if (isset($_POST["btnOk"])) {
         </select>
         <input type="submit" name="btnOk" id="btnOk" value="送出">
         <!-- 即時天氣 -->
-        <table>
-            <div>
+        <table style="text-align:center">
+            <div style="text-align:center">
                 城市名：<?= $_POST["selectCity"] ?>
-               
+            </div>
+            <div>
+                <img src="<?= "Images/" . $_POST["selectCity"] . ".jpg"  ?>" alt="" width="600" height="400" class="img-thumbnail rounded float-right">
             </div>
             <br>
             <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
@@ -100,9 +115,7 @@ if (isset($_POST["btnOk"])) {
                     <div>
                         舒適度：<?= $row["CI"] ?>
                     </div>
-                    <div>
-                        <img src="<?= "Images/".$_POST["selectCity"].".jpg"  ?>" alt="">
-                    </div>
+
                     <br>
                 </tr>
             <?php } ?>
@@ -133,6 +146,7 @@ if (isset($_POST["btnOk"])) {
                     <div>
                         <?= $row["startTime"] ?>
                     </div>
+
                     <br>
                 </tr>
             <?php } ?>
@@ -164,6 +178,7 @@ if (isset($_POST["btnOk"])) {
                     <div>
                         <?= $row["startTime"] ?>
                     </div>
+
                     <br>
                 </tr>
             <?php } ?>
