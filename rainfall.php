@@ -88,7 +88,7 @@ $rainfall = mysqli_query($link, $sql);
     </h3>
 
 
-    <div class="row ">
+    <div id="box2">
 
         <?php while ($row = mysqli_fetch_assoc($rainfall)) {    ?>
 

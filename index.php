@@ -18,7 +18,7 @@ if (isset($_POST["btnOk"])) {
     require("twodays_weather.php");
     require("oneweek_weather.php");
     // header("location:".$method.".php");
-   
+
 
 }
 if (isset($_POST["btnRain"])) {
@@ -45,19 +45,23 @@ if (isset($_POST["btnRain"])) {
     <link rel="stylesheet" href="css/ style.css">
     <link rel="stylesheet" href="css/grid.css">
 </head>
-
+<script>
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
 <body>
 
     <div class="p-3 mb-2 bg-primary text-white">
         <h1>
-            <a href="index.php" class="text-light">RD1-氣象網</a>
+            <a href="index.php" class="text-light" data-toggle="tooltip" title="按我回首頁">RD1-氣象網</a>
         </h1>
-        <form  method="post">
-        
+        <form method="post">
+
         </form>
     </div>
-    
+
     <div class="box-body">
         <h2>城市名：<?= $_POST["selectCity"] ?></h2>
     </div>
@@ -90,12 +94,12 @@ if (isset($_POST["btnRain"])) {
             <option value="嘉義縣">嘉義縣</option>
             <option value="嘉義市">嘉義市</option>
         </select>
-        <input type="submit" class = "btn btn-primary" name="btnOk" id="btnOk" value="送出">
-        <input type="submit" class = "btn btn-success" id="btnRain" name="btnRain" value="雨量觀測">
+        <input type="submit" class="btn btn-primary" name="btnOk" id="btnOk" value="送出">
+        <input type="submit" class="btn btn-success" id="btnRain" name="btnRain" value="雨量觀測">
 
 
 
-        <div id="box1" class="text-center col card box-margins" style="width: 30rem;">
+        <div class="text-center col card box-margins" style="width: 30rem;">
 
             <!-- 即時天氣 -->
             <h3>
@@ -105,6 +109,7 @@ if (isset($_POST["btnRain"])) {
                 <tbody>
                     <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
                         <thead>
+                            <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80" class="mx-auto d-block">
                             <tr>
                                 <th>天氣狀況：</th>
                                 <th>降雨機率：</th>
@@ -127,25 +132,37 @@ if (isset($_POST["btnRain"])) {
         </div>
 
 
-        <h3>
+
+
+
+
+
+
+
+
+
+
+        <h3 style="text-align:left;">
             未來兩天
         </h3>
         <div class="row ">
 
             <?php while ($row = mysqli_fetch_assoc($twodays)) {    ?>
 
-                <div class="col-xs ">
+                <div class="col-sm ">
                     <thead>
                         <tr>
-                            <? list($date)=explode(" ", $row["startTime"]); //取出日期部份 ?>
-                            <? list($Y,$M,$D)=explode("-",$date); //分離出年月日以便製作時戳?>
-                            <?= $date . "  星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))]; ?>
+                            <?php list($date) = explode(" ", $row["startTime"]); //取出日期部份 
+                            list($Y, $M, $D) = explode("-", $date); //分離出年月日以便製作時戳
+                            echo $date;
+                            echo "<br>";
+                            echo "星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))]; ?>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <br>
-                            天氣狀況：<?= $row["Wx"] ?>
+                            凌晨天氣狀況：<?= $row["Wx"] ?>
                             <br>
                             <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80" class="float-left">
                             <br><br><br><br>
@@ -158,20 +175,15 @@ if (isset($_POST["btnRain"])) {
 
                     <?php $row = mysqli_fetch_assoc($twodays) ?>
                     <tr>
-                    <tr>
-                        <? list($date)=explode(" ", $row["startTime"]); //取出日期部份 ?>
-                        <? list($Y,$M,$D)=explode("-",$date); //分離出年月日以便製作時戳?>
-                        <?= $date . "  星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))]; ?>
-                    </tr>
-                    <br>
-                    天氣狀況：<?= $row["Wx"] ?>
-                    <br>
-                    <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80" class="float-left">
-                    <br><br><br><br>
-                    <img src="Images/icon/降雨量.png" width="30" height="20" alt=""><?= $row["PoP"] ?>
-                    <br>
-                    <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?= $row["T"] ?>
-                    <br><br>
+                        <br>
+                        傍晚天氣狀況：<?= $row["Wx"] ?>
+                        <br>
+                        <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80" class="float-left">
+                        <br><br><br><br>
+                        <img src="Images/icon/降雨量.png" width="30" height="20" alt=""><?= $row["PoP"] ?>
+                        <br>
+                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?= $row["T"] ?>
+                        <br><br>
                     </tr>
                 </div>
 
@@ -235,6 +247,26 @@ if (isset($_POST["btnRain"])) {
 
 
     </form>
+
+
+
+    <button type="button" id="BackTop" class="btn btn-primary">回頂部</button>
+    <script>
+        $(function() {
+            $('#BackTop').click(function() {
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 333);
+            });
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 300) {
+                    $('#BackTop').fadeIn(222);
+                } else {
+                    $('#BackTop').stop().fadeOut(222);
+                }
+            }).scroll();
+        });
+    </script>
 </body>
 
 </html>
