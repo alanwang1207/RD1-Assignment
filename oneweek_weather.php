@@ -18,7 +18,7 @@ $data = json_decode($json, true);  // 將json轉成陣列或object
 
 $weatherElement = $data['records']["locations"][0]['location'][0]['weatherElement'];
 //用來判斷開始時間
-$today = date('Y-m-d', strtotime("+1 day"));
+$today = date('Y-m-d');
 $oneweek =  date('Y-m-d', strtotime("+8 day"));
 // unset($json, $data);
 // var_dump(count($weatherElement));//記錄天氣因子個數
@@ -60,6 +60,7 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
 }
 
 $sql = <<<sqlstate
-    select * from oneweek where cityName = '$cityName';
+select * from oneweek
+where cityName = '$cityName';
 sqlstate;
 $oneweek = mysqli_query($link, $sql);

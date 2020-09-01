@@ -57,7 +57,8 @@ foreach ($weatherElement[6]['time'] as $key => $value) {
 }
 
 $sql = <<<sqlstate
-    select * from twodays where cityName = '$cityName';
+select * from twodays
+where (cityName = '$cityName') and (startTime like '%6:00%' or startTime like '%18:00%')
 sqlstate;
 $twodays = mysqli_query($link, $sql);
 ?>

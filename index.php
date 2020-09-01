@@ -2,18 +2,13 @@
 session_start();
 // date_default_timezone_set('Asia/Taipei');
 // $date = date("Y-m-d H:i:s");
-// echo $date;
 $url = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-20260A47-5D47-474D-AABA-BBC6BC84F310&format=JSON&sort=time";  // Your json data url
 $json = file_get_contents($url);  // PHP get data from url
 $data = json_decode($json, true);  // Decode json data
 global $cid;
 
 $locationName = $data['records']['location'];
-// echo "<br>";
-//     for ($j = 0; $j < count($locationName); $j++) {
-//         echo $locationName[$j]["locationName"];
-//             echo "<br>";
-//         }
+$week = array("日", "一", "二", "三", "四", "五", "六");
 
 if (isset($_POST["btnOk"])) {
     $cityi = $_POST["selectCity"];
@@ -21,12 +16,15 @@ if (isset($_POST["btnOk"])) {
     // echo $cid;
     require("current_weather.php");
     require("twodays_weather.php");
-    // require("oneweek_weather.php");
+    require("oneweek_weather.php");
     // header("location:".$method.".php");
-
+   
 
 }
-
+if (isset($_POST["btnRain"])) {
+    $_SESSION['selectCity'] = $_POST["selectCity"];
+    header("location:rainfall.php");
+}
 
 ?>
 
@@ -52,14 +50,20 @@ if (isset($_POST["btnOk"])) {
 <body>
 
     <div class="p-3 mb-2 bg-primary text-white">
-        <h1 class="text-light">RD1-氣象網</h1>
+        <h1>
+            <a href="index.php" class="text-light">RD1-氣象網</a>
+        </h1>
+        <form  method="post">
+        
+        </form>
     </div>
+    
     <div class="box-body">
         <h2>城市名：<?= $_POST["selectCity"] ?></h2>
     </div>
     <div>
-            <img src="<?= "Images/" . $_POST["selectCity"] . ".jpg"  ?>" alt="" width="500" height="400" class="img-thumbnail  float-right">
-        </div>
+        <img src="<?= "Images/" . $_POST["selectCity"] . ".jpg"  ?>" alt="" width="500" height="400" class="img-thumbnail  float-right">
+    </div>
     <form method="post">
         <select name="selectCity" id="selectCity" style="width: 200px" class="browser-default custom-select">
             <option value="" disabled="" selected="">選擇縣市</option>
@@ -86,9 +90,10 @@ if (isset($_POST["btnOk"])) {
             <option value="嘉義縣">嘉義縣</option>
             <option value="嘉義市">嘉義市</option>
         </select>
-        <input type="submit" name="btnOk" id="btnOk" value="送出">
+        <input type="submit" class = "btn btn-primary" name="btnOk" id="btnOk" value="送出">
+        <input type="submit" class = "btn btn-success" id="btnRain" name="btnRain" value="雨量觀測">
 
-        
+
 
         <div id="box1" class="text-center col card box-margins" style="width: 30rem;">
 
@@ -122,27 +127,52 @@ if (isset($_POST["btnOk"])) {
         </div>
 
 
-
-
-
-        <!-- 未來兩天 -->
         <h3>
             未來兩天
         </h3>
-        <div id="box">
+        <div class="row ">
 
             <?php while ($row = mysqli_fetch_assoc($twodays)) {    ?>
-                <div>
-                    <?= $row["startTime"] ?>
+
+                <div class="col-xs ">
+                    <thead>
+                        <tr>
+                            <? list($date)=explode(" ", $row["startTime"]); //取出日期部份 ?>
+                            <? list($Y,$M,$D)=explode("-",$date); //分離出年月日以便製作時戳?>
+                            <?= $date . "  星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))]; ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <br>
+                            天氣狀況：<?= $row["Wx"] ?>
+                            <br>
+                            <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80" class="float-left">
+                            <br><br><br><br>
+                            <img src="Images/icon/降雨量.png" width="30" height="20" alt=""><?= $row["PoP"] ?>
+                            <br>
+                            <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?= $row["T"] ?>
+                            <br><br>
+                        </tr>
+                    </tbody>
+
+                    <?php $row = mysqli_fetch_assoc($twodays) ?>
+                    <tr>
+                    <tr>
+                        <? list($date)=explode(" ", $row["startTime"]); //取出日期部份 ?>
+                        <? list($Y,$M,$D)=explode("-",$date); //分離出年月日以便製作時戳?>
+                        <?= $date . "  星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))]; ?>
+                    </tr>
                     <br>
                     天氣狀況：<?= $row["Wx"] ?>
                     <br>
-                    <img src="<?= "Images/icon/" .$row["Wx"]. ".png"  ?>" alt="" width="100" height="80" class="float-left">
+                    <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80" class="float-left">
                     <br><br><br><br>
                     <img src="Images/icon/降雨量.png" width="30" height="20" alt=""><?= $row["PoP"] ?>
                     <br>
                     <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?= $row["T"] ?>
                     <br><br>
+                    </tr>
                 </div>
 
             <?php } ?>
@@ -150,43 +180,57 @@ if (isset($_POST["btnOk"])) {
 
 
 
-
-
-
-
-
-
-
-
         <!-- 未來一週 -->
-        <!-- <h3>
-            未來一週
-        </h3> -->
 
-        <div id="box">
+        <h3>
+            未來一週
+        </h3>
+
+
+        <div class="row ">
 
             <?php while ($row = mysqli_fetch_assoc($oneweek)) {    ?>
-                <div>
-                    天氣狀況：<?= $row["Wx"] ?>
-                    <br>
-                    <?php if ($row["PoP"] == '-1') : ?>
-                    <?php else : ?>
-                        <?= $row["PoP"] ?>
-                    <?php endif; ?>
-                    <br>
-                    溫度：<?= $row["T"] ?>
-                    <br>
-                    舒適度：<?= $row["CI"] ?>
-                    <br>
-                    舒適度：<?= $row["CI"] ?>
-                    <br>
-                    濕度：<?= $row["RH"] ?>
-                    <br>
-                    <?= $row["startTime"] ?>
-                    <br><br>
+
+                <div class="col-sm card">
+                    <tr>
+                        <?= $row["startTime"] ?>
+                        <br>
+                        天氣狀況：<?= $row["Wx"] ?>
+                        <br>
+                        <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80">
+                        <br><br>
+                        <?php if ($row["PoP"] == '-1') : ?>
+                        <?php else : ?>
+                            <img src="Images/icon/降雨量.png" width="30" height="20" alt="">
+                            <?= $row["PoP"] ?>
+                        <?php endif; ?>
+                        <br>
+                        <br>
+                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?= $row["T"] ?>
+                        <br><br>
+                    </tr>
+                    <?php $row = mysqli_fetch_assoc($oneweek) ?>
+                    <tr>
+                        <?= $row["startTime"] ?>
+                        <br>
+                        天氣狀況：<?= $row["Wx"] ?>
+                        <br>
+                        <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80">
+                        <br><br>
+                        <?php if ($row["PoP"] == '-1') : ?>
+                        <?php else : ?>
+                            <img src="Images/icon/降雨量.png" width="30" height="20" alt="">
+                            <?= $row["PoP"] ?>
+                        <?php endif; ?>
+                        <br>
+                        <br>
+                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?= $row["T"] ?>
+                        <br><br>
+                    </tr>
                 </div>
 
             <?php } ?>
+
         </div>
 
 
