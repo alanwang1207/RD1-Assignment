@@ -14,12 +14,14 @@ $locationName = $data['records']['location'];
 //         echo $locationName[$j]["locationName"];
 //             echo "<br>";
 //         }
+
 if (isset($_POST["btnOk"])) {
     $cityi = $_POST["selectCity"];
     $_SESSION['selectCity'] = $_POST["selectCity"];
-    $method = $_POST["selectmethod"];
     // echo $cid;
-    require($method . ".php");
+    require("current_weather.php");
+    require("twodays_weather.php");
+    // require("oneweek_weather.php");
     // header("location:".$method.".php");
 
 
@@ -43,14 +45,21 @@ if (isset($_POST["btnOk"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/ style.css">
+    <link rel="stylesheet" href="css/grid.css">
 </head>
 
 
-<body >
+<body>
 
     <div class="p-3 mb-2 bg-primary text-white">
         <h1 class="text-light">RD1-氣象網</h1>
     </div>
+    <div class="box-body">
+        <h2>城市名：<?= $_POST["selectCity"] ?></h2>
+    </div>
+    <div>
+            <img src="<?= "Images/" . $_POST["selectCity"] . ".jpg"  ?>" alt="" width="500" height="400" class="img-thumbnail  float-right">
+        </div>
     <form method="post">
         <select name="selectCity" id="selectCity" style="width: 200px" class="browser-default custom-select">
             <option value="" disabled="" selected="">選擇縣市</option>
@@ -77,35 +86,27 @@ if (isset($_POST["btnOk"])) {
             <option value="嘉義縣">嘉義縣</option>
             <option value="嘉義市">嘉義市</option>
         </select>
-        <select name="selectmethod" id="selectmethod" style="width: 200px" class="browser-default custom-select">
-            <option value="" disabled="" selected="">選擇查看資料</option>
-            <option value="current_weather">即時</option>
-            <option value="twodays_weather">兩天</option>
-            <option value="oneweek_weather">一週</option>
-            <option value="rainfall">雨量</option>
-        </select>
         <input type="submit" name="btnOk" id="btnOk" value="送出">
-        <!-- 即時天氣 -->
-        <div>
-            <img src="<?= "Images/" . $_POST["selectCity"] . ".jpg"  ?>" alt="" width="600" height="400" class="img-thumbnail rounded float-right">
-        </div>
+
+        
+
         <div id="box1" class="text-center col card box-margins" style="width: 30rem;">
-            <div class="box-body">
-                城市名：<?= $_POST["selectCity"] ?>
-            </div>
 
+            <!-- 即時天氣 -->
+            <h3>
+                即時天氣
+            </h3>
             <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>天氣狀況：</th>
-                        <th>降雨機率：</th>
-                        <th>溫度：</th>
-                        <th>舒適度：</th>
-                    </tr>
-                </thead>
-
                 <tbody>
                     <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
+                        <thead>
+                            <tr>
+                                <th>天氣狀況：</th>
+                                <th>降雨機率：</th>
+                                <th>溫度：</th>
+                                <th>舒適度：</th>
+                            </tr>
+                        </thead>
                         <tr>
 
                             <td><?= $row["Wx"] ?></td>
@@ -118,94 +119,77 @@ if (isset($_POST["btnOk"])) {
                 </tbody>
             </table>
 
-            <br>
-            <!-- <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
+        </div>
 
-                <tr class=".container">
 
-                    <div>
-                        天氣狀況：<?= $row["Wx"] ?>
-                    </div>
-                    <div>
-                        降雨機率：<?= $row["PoP"] ?>%
-                    </div>
-                    <div>
-                        最低溫：<?= $row["MinT"] ?>°C
-                    </div>
-                    <div>
-                        最高溫：<?= $row["MaxT"] ?>°C
-                    </div>
-                    <div>
-                        舒適度：<?= $row["CI"] ?>
-                    </div>
-                    <div>
-                        <br>
-                </tr>
-            <?php } ?> -->
 
-            <!-- <di -->
 
-            <!-- 未來兩天 -->
-            <table>
-                <?php while ($row = mysqli_fetch_assoc($twodays)) { ?>
 
-                    <tr class=".container">
+        <!-- 未來兩天 -->
+        <h3>
+            未來兩天
+        </h3>
+        <div id="box">
 
-                        <div>
-                            天氣狀況：<?= $row["Wx"] ?>
-                        </div>
-                        <div>
-                            <?= $row["PoP"] ?>
-                        </div>
-                        <div>
-                            <?= $row["T"] ?>
-                        </div>
-                        <div>
-                            舒適度：<?= $row["CI"] ?>
-                        </div>
-                        <div>
-                            <?= $row["RH"] ?>
-                        </div>
-                        <div>
-                            <?= $row["startTime"] ?>
-                        </div>
+            <?php while ($row = mysqli_fetch_assoc($twodays)) {    ?>
+                <div>
+                    <?= $row["startTime"] ?>
+                    <br>
+                    天氣狀況：<?= $row["Wx"] ?>
+                    <br>
+                    <img src="<?= "Images/icon/" .$row["Wx"]. ".png"  ?>" alt="" width="100" height="80" class="float-left">
+                    <br><br><br><br>
+                    <img src="Images/icon/降雨量.png" width="30" height="20" alt=""><?= $row["PoP"] ?>
+                    <br>
+                    <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?= $row["T"] ?>
+                    <br><br>
+                </div>
 
-                        <br>
-                    </tr>
-                <?php } ?>
-            </table>
-            <!-- 未來一週 -->
-            <table>
-                <?php while ($row = mysqli_fetch_assoc($oneweek)) { ?>
+            <?php } ?>
+        </div>
 
-                    <tr class=".container">
 
-                        <div>
-                            天氣狀況：<?= $row["Wx"] ?>
-                        </div>
-                        <div>
-                            <?php if ($row["PoP"] == '-1') : ?>
-                            <?php else : ?>
-                                <?= $row["PoP"] ?>
-                            <?php endif; ?>
-                        </div>
-                        <div>
-                            溫度：<?= $row["T"] ?>
-                        </div>
-                        <div>
-                            舒適度：<?= $row["CI"] ?>
-                        </div>
-                        <div>
-                            濕度：<?= $row["RH"] ?>
-                        </div>
-                        <div>
-                            <?= $row["startTime"] ?>
-                        </div>
 
-                        <br>
-                    </tr>
-                <?php } ?>
-            </table>
+
+
+
+
+
+
+
+
+        <!-- 未來一週 -->
+        <!-- <h3>
+            未來一週
+        </h3> -->
+
+        <div id="box">
+
+            <?php while ($row = mysqli_fetch_assoc($oneweek)) {    ?>
+                <div>
+                    天氣狀況：<?= $row["Wx"] ?>
+                    <br>
+                    <?php if ($row["PoP"] == '-1') : ?>
+                    <?php else : ?>
+                        <?= $row["PoP"] ?>
+                    <?php endif; ?>
+                    <br>
+                    溫度：<?= $row["T"] ?>
+                    <br>
+                    舒適度：<?= $row["CI"] ?>
+                    <br>
+                    舒適度：<?= $row["CI"] ?>
+                    <br>
+                    濕度：<?= $row["RH"] ?>
+                    <br>
+                    <?= $row["startTime"] ?>
+                    <br><br>
+                </div>
+
+            <?php } ?>
+        </div>
+
+
     </form>
 </body>
 
