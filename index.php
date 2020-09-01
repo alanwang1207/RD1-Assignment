@@ -89,13 +89,37 @@ if (isset($_POST["btnOk"])) {
         <div>
             <img src="<?= "Images/" . $_POST["selectCity"] . ".jpg"  ?>" alt="" width="600" height="400" class="img-thumbnail rounded float-right">
         </div>
-        <div id="box1" class="text-center col card box-margins" style="width: 18rem;">
+        <div id="box1" class="text-center col card box-margins" style="width: 30rem;">
             <div class="box-body">
                 城市名：<?= $_POST["selectCity"] ?>
             </div>
 
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>天氣狀況：</th>
+                        <th>降雨機率：</th>
+                        <th>溫度：</th>
+                        <th>舒適度：</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
+                        <tr>
+
+                            <td><?= $row["Wx"] ?></td>
+                            <td><?= $row["PoP"] ?>%</td>
+                            <td><?= $row["MinT"] ?>～<?= $row["MaxT"] ?>°C</td>
+                            <td><?= $row["CI"] ?></td>
+
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+
             <br>
-            <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
+            <!-- <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
 
                 <tr class=".container">
 
@@ -117,7 +141,7 @@ if (isset($_POST["btnOk"])) {
                     <div>
                         <br>
                 </tr>
-            <?php } ?>
+            <?php } ?> -->
 
             <!-- <di -->
 
