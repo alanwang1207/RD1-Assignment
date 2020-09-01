@@ -27,7 +27,7 @@ $locations = $data['records']['location'];
 for ($i = 0; $i < count($locations); $i++) {
     $attr = $locations[$i]['parameter'][4]['parameterValue'];
     $city = $locations[$i]['parameter'][0]['parameterValue'];
-    if ($attr == '中央氣象局' && $city == $cityName) {
+    if ($attr != '局屬無人測站' && $city == $cityName) {
         $locationName = $locations[$i]['locationName'];
         $onehour = $locations[$i]['weatherElement'][1]['elementValue'];
         $HOUR_24 = $locations[$i]['weatherElement'][6]['elementValue'];
@@ -61,13 +61,17 @@ $rainfall = mysqli_query($link, $sql);
     <link rel="stylesheet" href="css/ style.css">
     <link rel="stylesheet" href="css/grid.css">
 </head>
-
+<script>
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
 <body>
 
     <div class="p-3 mb-2 bg-primary text-white">
         <h1>
-            <a href="index.php" class="text-light">RD1-氣象網</a>
+        <a href="index.php" class="text-light" data-toggle="tooltip" title="按我回首頁">RD1-氣象網</a>
         </h1>
         <form method="post">
 
