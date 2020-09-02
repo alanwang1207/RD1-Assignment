@@ -69,7 +69,7 @@ if (isset($_POST["btnRain"])) {
         <img src="<?= "Images/" . $_POST["selectCity"] . ".jpg"  ?>" alt="" width="500" height="400" class="img-thumbnail  float-right">
     </div>
     <form method="post">
-        <select name="selectCity" id="selectCity" style="width: 200px" class="browser-default custom-select">
+        <select name="selectCity" id="selectCity" style="width: 200px;" class="browser-default custom-select">
             <option value="" disabled="" selected="">選擇縣市</option>
             <option value="雲林縣">雲林縣</option>
             <option value="南投縣">南投縣</option>
@@ -102,9 +102,9 @@ if (isset($_POST["btnRain"])) {
         <div class="text-center col card box-margins" style="width: 35rem;">
 
             <!-- 即時天氣 -->
-            <h3>
+            <h2>
                 即時天氣
-            </h3>
+            </h2>
             <table class="table table-striped">
                 <tbody>
                     <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
@@ -142,9 +142,9 @@ if (isset($_POST["btnRain"])) {
 
 
 
-        <h3 style="text-align:left;">
+        <h2 style="text-align:left;">
             未來兩天
-        </h3>
+        </h2>
         <div class="row ">
             <?php while ($row = mysqli_fetch_assoc($twodays)) {    ?>
 
@@ -173,7 +173,9 @@ if (isset($_POST["btnRain"])) {
                         </tr>
                     </tbody>
 
+
                     <?php $row = mysqli_fetch_assoc($twodays) ?>
+                   
                     <tr>
                         <br>
                         傍晚天氣狀況：<?= $row["Wx"] ?>
@@ -193,22 +195,25 @@ if (isset($_POST["btnRain"])) {
 
         <!-- 未來一週 -->
 
-        <h3>
+        <h2>
             未來一週
-        </h3>
+        </h2>
 
 
         <div class="row " >
 
             <?php while ($row = mysqli_fetch_assoc($oneweek)) {    ?>
-
-                <div class="col-md table ">
-                    <span>
+                <div id="box1" class="col-md table " >
+                    <div style="background-color: #C4E1FF;">
                         <?php list($date) = explode(" ", $row["startTime"]); //取出日期部份 
                         list($Y, $M, $D) = explode("-", $date); //分離出年月日以便製作時戳
                         echo $date;
                         echo "<br>";
                         echo "星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))]; ?>
+                        </div>
+                        <div style="background-color: #84C1FF;">
+
+                        
                         <br>
                         06:00<br>
                         <?= $row["Wx"] ?>
@@ -222,9 +227,12 @@ if (isset($_POST["btnRain"])) {
                         舒適度：<?= $row["CI"] ?>
                         <br>
                         <?= $row["RH"] ?><br>
-                    </span>
+                        </div>
                     <?php $row = mysqli_fetch_assoc($oneweek) ?>
-                    <tr>
+                    <div style="background-color: #2894FF;">
+
+                    
+
                         <br>
                         18:00
                         <br>
@@ -239,20 +247,19 @@ if (isset($_POST["btnRain"])) {
                         舒適度：<?= $row["CI"] ?>
                         <br>
                         <?= $row["RH"] ?><br>
-                    </tr>
 
+                    </div>
                 </div>
 
             <?php } ?>
 
         </div>
 
-
     </form>
 
 
 
-    <button type="button" id="BackTop" class="btn btn-primary">回頂部</button>
+    <button type="button" id="BackTop" class="btn btn-primary" >回頂部</button>
     <script>
         $(function() {
             $('#BackTop').click(function() {
