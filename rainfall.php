@@ -2,28 +2,22 @@
 session_start();
 require_once("config.php");
 $cityName = $_SESSION['selectCity'];
-// echo $cityName;
-// echo "<br>";
 $sql = <<<sqlstate
                     delete from rainfall where city = '$cityName';
                   sqlstate;
 mysqli_query($link, $sql);
+
+//拆解url
 $resource_id = "O-A0002-001";
 $Authorization = "CWB-20260A47-5D47-474D-AABA-BBC6BC84F310";
-
-
-
 $url = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/" . $resource_id . "?Authorization=" . $Authorization . "&format=JSON";  // Your json data url
 $json = file_get_contents($url);  // 把整個文件讀入一個字符串中
 $data = json_decode($json, true);  // 將json轉成陣列或object 
-// 觀測站名;
 
+//計算總站數
 $locations = $data['records']['location'];
-//總站數
-// echo count($locations);
-// unset($json, $data);
-// var_dump(count($weatherElement));//記錄天氣因子個數
 
+//用for篩選出所選城市的有人觀測站
 for ($i = 0; $i < count($locations); $i++) {
     $attr = $locations[$i]['parameter'][4]['parameterValue'];
     $city = $locations[$i]['parameter'][0]['parameterValue'];
@@ -39,6 +33,8 @@ for ($i = 0; $i < count($locations); $i++) {
         mysqli_query($link, $sql);
     }
 }
+
+//秀出選取城市所有資料
 $sql = <<<sqlstate
                     select * from rainfall where city = '$cityName'
                   sqlstate;
@@ -87,23 +83,8 @@ $rainfall = mysqli_query($link, $sql);
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="container">
-        
+
         <table class="table table-bordered" style="width: 40em;">
             <thead>
                 <tr>
@@ -113,23 +94,23 @@ $rainfall = mysqli_query($link, $sql);
                 </tr>
             </thead>
             <?php while ($row = mysqli_fetch_assoc($rainfall)) {    ?>
-            <tbody>
-                <tr>
-                    <td><?= $row["locationName"] ?></td>
-                    <td><?php if ($row["onehour"] <= '0') : ?>
-                            該時刻因故無資料
-                        <?php else : ?>
-                            <?= $row["onehour"]."mm" ?>
-                        <?php endif; ?></td>
-                    <td><?php if ($row["HOUR_24"] <= '0') : ?>
-                            該時刻因故無資料
-                        <?php else : ?>
-                            <?= $row["HOUR_24"]."mm" ?>
-                        <?php endif; ?></td>
-                </tr>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td><?= $row["locationName"] ?></td>
+                        <td><?php if ($row["onehour"] <= '0') : ?>
+                                該時刻因故無資料
+                            <?php else : ?>
+                                <?= $row["onehour"] . "mm" ?>
+                            <?php endif; ?></td>
+                        <td><?php if ($row["HOUR_24"] <= '0') : ?>
+                                該時刻因故無資料
+                            <?php else : ?>
+                                <?= $row["HOUR_24"] . "mm" ?>
+                            <?php endif; ?></td>
+                    </tr>
+                    </tr>
                 <?php } ?>
-            </tbody>
+                </tbody>
         </table>
     </div>
 

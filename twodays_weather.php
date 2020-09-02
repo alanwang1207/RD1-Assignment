@@ -15,22 +15,20 @@ $locationName = urlencode($cityName);
 $url1 = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/" . $resource_id . "?Authorization=" . $Authorization . "&format=JSON&locationName=" . $locationName . "&elementName=WeatherDescription&sort=time";  // Your json data url
 $json1 = file_get_contents($url1);  // 把整個文件讀入一個字符串中
 $data1 = json_decode($json1, true);  // 將json轉成陣列或object 
-// var_dump($data);
+
 
 $weatherElement1 = $data1['records']["locations"][0]['location'][0]['weatherElement'];
 
 $url2 = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/" . $resource_id . "?Authorization=" . $Authorization . "&format=JSON&locationName=" . $locationName . "&elementName=Wx&sort=time";  // Your json data url
 $json2 = file_get_contents($url2);  // 把整個文件讀入一個字符串中
 $data2 = json_decode($json2, true);  // 將json轉成陣列或object 
-// var_dump($data);
+
 
 
 $weatherElement2 = $data2['records']["locations"][0]['location'][0]['weatherElement'];
 //用來判斷開始時間
 $today = date('Y-m-d', strtotime("+1 day"));
 $twoday =  date('Y-m-d', strtotime("+3 day"));
-// unset($json, $data);
-// var_dump(count($weatherElement));//記錄天氣因子個數
 // 抓取天氣值
 
 foreach ($weatherElement1[0]['time'] as $key => $value) {
@@ -60,7 +58,6 @@ foreach ($weatherElement2[0]['time'] as $key => $value) {
                     update twodays set WxValue = '$WxValue' where cityName = '$cityName' and startTime= '$startTime' 
                   sqlstate;
         mysqli_query($link, $sql);
-        // echo "<br>";
     }
 }
 
