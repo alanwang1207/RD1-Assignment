@@ -4,6 +4,7 @@
 }
 body {
 	background-color: #ffffff;
+	font-family: "微軟正黑體";
 }
 
 h3{
@@ -14,3 +15,6 @@ h3{
 	font-weight: bold;
 }
 
+.test{
+	background-color: rgb(194, 18, 18);
+}

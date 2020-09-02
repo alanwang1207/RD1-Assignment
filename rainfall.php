@@ -71,7 +71,7 @@ $rainfall = mysqli_query($link, $sql);
 
     <div class="p-3 mb-2 bg-primary text-white">
         <h1>
-        <a href="index.php" class="text-light" data-toggle="tooltip" title="按我回首頁">RD1-氣象網</a>
+            <a href="index.php" class="text-light" data-toggle="tooltip" title="按我回首頁">RD1-氣象網</a>
         </h1>
         <form method="post">
 
@@ -80,6 +80,7 @@ $rainfall = mysqli_query($link, $sql);
 
     <div class="box-body">
         <h2 class="card-title">城市名：<?= $cityName ?></h2>
+        <h2>中央氣象局雨量觀測站</h2>
     </div>
     <div>
         <img src="<?= "Images/" . $_SESSION['selectCity'] . ".jpg"  ?>" alt="" width="500" height="400" class="img-thumbnail  float-right">
@@ -87,37 +88,57 @@ $rainfall = mysqli_query($link, $sql);
 
 
 
-    <h3>
-        中央氣象局雨量觀測站
-    </h3>
 
 
-    <div id="box2">
 
-        <?php while ($row = mysqli_fetch_assoc($rainfall)) {    ?>
 
-            <div class="col-md card">
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+        
+        <table class="table table-bordered" style="width: 40em;">
+            <thead>
                 <tr>
-                    <?= $row["locationName"] ?>
-                    <br>
-                    <?php if ($row["onehour"] <= '0') : ?>
-                        １小時累積雨量 ： 該時刻因故無資料
-                    <?php else : ?>
-                        １小時累積雨量 ： <?= $row["onehour"] ?>
-                    <?php endif; ?>
-                    <br>
-                    <?php if ($row["HOUR_24"] <= '0') : ?>
-                        24小時累積雨量 ： 該時刻因故無資料
-                    <?php else : ?>
-                        24小時累積雨量 ：<?= $row["HOUR_24"] ?>
-                    <?php endif; ?>
-
+                    <th>觀測站名</th>
+                    <th>１小時累積雨量</th>
+                    <th>24小時累積雨量</th>
                 </tr>
-            </div>
-
-        <?php } ?>
-
+            </thead>
+            <?php while ($row = mysqli_fetch_assoc($rainfall)) {    ?>
+            <tbody>
+                <tr>
+                    <td><?= $row["locationName"] ?></td>
+                    <td><?php if ($row["onehour"] <= '0') : ?>
+                            該時刻因故無資料
+                        <?php else : ?>
+                            <?= $row["onehour"]."mm" ?>
+                        <?php endif; ?></td>
+                    <td><?php if ($row["HOUR_24"] <= '0') : ?>
+                            該時刻因故無資料
+                        <?php else : ?>
+                            <?= $row["HOUR_24"]."mm" ?>
+                        <?php endif; ?></td>
+                </tr>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
     </div>
+
+
+
+
+
+
+
 
 
 </body>

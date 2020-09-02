@@ -42,7 +42,7 @@ if (isset($_POST["btnRain"])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/ style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/grid.css">
 </head>
 <script>
@@ -146,12 +146,12 @@ if (isset($_POST["btnRain"])) {
             未來兩天
         </h3>
         <div class="row ">
-
             <?php while ($row = mysqli_fetch_assoc($twodays)) {    ?>
 
                 <div class="col-sm ">
+
                     <thead>
-                        <tr>
+                        <tr class="test">
                             <?php list($date) = explode(" ", $row["startTime"]); //取出日期部份 
                             list($Y, $M, $D) = explode("-", $date); //分離出年月日以便製作時戳
                             echo $date;
@@ -191,7 +191,6 @@ if (isset($_POST["btnRain"])) {
         </div>
 
 
-
         <!-- 未來一週 -->
 
         <h3>
@@ -199,31 +198,31 @@ if (isset($_POST["btnRain"])) {
         </h3>
 
 
-        <div class="row ">
+        <div class="row " >
 
             <?php while ($row = mysqli_fetch_assoc($oneweek)) {    ?>
 
-                <div class="col-md ">
-                    <tr>
+                <div class="col-md table ">
+                    <span>
                         <?php list($date) = explode(" ", $row["startTime"]); //取出日期部份 
                         list($Y, $M, $D) = explode("-", $date); //分離出年月日以便製作時戳
                         echo $date;
                         echo "<br>";
-                        echo "星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))] ; ?>
+                        echo "星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))]; ?>
                         <br>
                         06:00<br>
                         <?= $row["Wx"] ?>
                         <br>
                         <img src="<?= "Images/icon/" . $row["WxValue"] . ".png"  ?>" alt="" width="100" height="80">
                         <br>
-                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?php   $T = explode("溫度攝氏", $row["T"]);
-                        echo $T[1]
-                        ?>
+                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?php $T = explode("溫度攝氏", $row["T"]);
+                                                                                    echo $T[1]
+                                                                                    ?>
                         <br>
                         舒適度：<?= $row["CI"] ?>
                         <br>
                         <?= $row["RH"] ?><br>
-                    </tr>
+                    </span>
                     <?php $row = mysqli_fetch_assoc($oneweek) ?>
                     <tr>
                         <br>
@@ -233,15 +232,15 @@ if (isset($_POST["btnRain"])) {
                         <br>
                         <img src="<?= "Images/icon/" . $row["WxValue"] . ".png"  ?>" alt="" width="100" height="80">
                         <br>
-                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?php   $T = explode("溫度攝氏", $row["T"]);
-                        echo $T[1]
-                        ?>
+                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?php $T = explode("溫度攝氏", $row["T"]);
+                                                                                    echo $T[1]
+                                                                                    ?>
                         <br>
                         舒適度：<?= $row["CI"] ?>
                         <br>
                         <?= $row["RH"] ?><br>
                     </tr>
-                    
+
                 </div>
 
             <?php } ?>
