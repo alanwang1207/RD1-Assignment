@@ -40,23 +40,36 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
                     insert into oneweek (cityName,Wx,PoP,T,CI,RH,startTime)
                     values('$cityName','$Wx','$PoP','$T','$CI','$RH','$startTime')
                   sqlstate;
-        mysqli_query($link, $sql);
+            mysqli_query($link, $sql);
             // echo $PoP . "<br>";
         } else {
             $T = $weatherDescription[1];
             $CI = $weatherDescription[2];
             $RH = $weatherDescription[4];
             $sql = <<<sqlstate
-                    insert into oneweek (cityName,Wx,PoP,T,CI,RH,startTime)
-                    values('$cityName','$Wx','-1','$T','$CI','$RH','$startTime')
+                    insert into oneweek (cityName,Wx,WxValue,PoP,T,CI,RH,startTime)
+                    values('$cityName','$Wx','0','-1','$T','$CI','$RH','$startTime')
                   sqlstate;
-        mysqli_query($link, $sql);
+            mysqli_query($link, $sql);
         }
         // echo $T . "<br>";
         // echo "舒適度：" . $CI . "<br>";
         // echo "開始時間 : " . $startTime . "<br>";
     }
     // echo "<br>";
+}
+
+
+foreach ($weatherElement[6]['time'] as $key => $value) {
+    if ($value["startTime"] > $today) {
+        $startTime = $value['startTime'];
+        $WxValue = $value['elementValue'][1]['value'];
+        $sql = <<<sqlstate
+        update oneweek set WxValue = '$WxValue' where cityName = '$cityName' and startTime= '$startTime' 
+      sqlstate;
+        mysqli_query($link, $sql);
+        // echo "<br>";
+    }
 }
 
 $sql = <<<sqlstate

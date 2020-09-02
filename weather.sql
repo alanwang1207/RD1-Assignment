@@ -27,6 +27,7 @@ CREATE TABLE `currentwt` (
 CREATE TABLE `oneweek` (
   `cityName` varchar(30)  NOT NULL,
   `Wx` varchar(30)  NOT NULL,
+  `WxValue` int NOT NULL,
   `PoP` varchar(30)  NOT NULL,
   `T` varchar(30)  NOT NULL,
   `CI` varchar(30)  NOT NULL,

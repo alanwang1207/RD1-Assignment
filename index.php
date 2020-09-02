@@ -209,7 +209,7 @@ if (isset($_POST["btnRain"])) {
                         <br>
                         天氣狀況：<?= $row["Wx"] ?>
                         <br>
-                        <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80">
+                        <img src="<?= "Images/icon/" . $row["WxValue"] . ".png"  ?>" alt="" width="100" height="80">
                         <br><br>
                         <?php if ($row["PoP"] == '-1') : ?>
                         <?php else : ?>
@@ -227,7 +227,7 @@ if (isset($_POST["btnRain"])) {
                         <br>
                         天氣狀況：<?= $row["Wx"] ?>
                         <br>
-                        <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80">
+                        <img src="<?= "Images/icon/" . $row["WxValue"] . ".png"  ?>" alt="" width="100" height="80">
                         <br><br>
                         <?php if ($row["PoP"] == '-1') : ?>
                         <?php else : ?>
