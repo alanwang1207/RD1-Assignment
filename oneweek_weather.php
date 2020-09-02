@@ -23,10 +23,10 @@ $oneweek =  date('Y-m-d', strtotime("+8 day"));
 // unset($json, $data);
 // var_dump(count($weatherElement));//記錄天氣因子個數
 
-
 foreach ($weatherElement[10]['time'] as $key => $value) {
     if ($value["startTime"] > $today) {
         $startTime = $value['startTime'];
+        
         $weatherDescription = $value['elementValue'][0]['value'];
         $weatherDescription = explode("。", $weatherDescription);
         $Wx = $weatherDescription[0];
@@ -37,8 +37,8 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
             $CI = $weatherDescription[3];
             $RH = $weatherDescription[5];
             $sql = <<<sqlstate
-                    insert into oneweek (cityName,Wx,PoP,T,CI,RH,startTime)
-                    values('$cityName','$Wx','$PoP','$T','$CI','$RH','$startTime')
+                    insert into oneweek (cityName,Wx,WxValue,PoP,T,CI,RH,startTime)
+                    values('$cityName','$Wx','0','$PoP','$T','$CI','$RH','$startTime')
                   sqlstate;
             mysqli_query($link, $sql);
             // echo $PoP . "<br>";

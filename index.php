@@ -99,7 +99,7 @@ if (isset($_POST["btnRain"])) {
 
 
 
-        <div class="text-center col card box-margins" style="width: 30rem;">
+        <div class="text-center col card box-margins" style="width: 35rem;">
 
             <!-- 即時天氣 -->
             <h3>
@@ -203,42 +203,45 @@ if (isset($_POST["btnRain"])) {
 
             <?php while ($row = mysqli_fetch_assoc($oneweek)) {    ?>
 
-                <div class="col-sm card">
+                <div class="col-md ">
                     <tr>
-                        <?= $row["startTime"] ?>
+                        <?php list($date) = explode(" ", $row["startTime"]); //取出日期部份 
+                        list($Y, $M, $D) = explode("-", $date); //分離出年月日以便製作時戳
+                        echo $date;
+                        echo "<br>";
+                        echo "星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))] ; ?>
                         <br>
-                        天氣狀況：<?= $row["Wx"] ?>
+                        06:00<br>
+                        <?= $row["Wx"] ?>
                         <br>
                         <img src="<?= "Images/icon/" . $row["WxValue"] . ".png"  ?>" alt="" width="100" height="80">
-                        <br><br>
-                        <?php if ($row["PoP"] == '-1') : ?>
-                        <?php else : ?>
-                            <img src="Images/icon/降雨量.png" width="30" height="20" alt="">
-                            <?= $row["PoP"] ?>
-                        <?php endif; ?>
                         <br>
+                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?php   $T = explode("溫度攝氏", $row["T"]);
+                        echo $T[1]
+                        ?>
                         <br>
-                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?= $row["T"] ?>
-                        <br><br>
+                        舒適度：<?= $row["CI"] ?>
+                        <br>
+                        <?= $row["RH"] ?><br>
                     </tr>
                     <?php $row = mysqli_fetch_assoc($oneweek) ?>
                     <tr>
-                        <?= $row["startTime"] ?>
                         <br>
-                        天氣狀況：<?= $row["Wx"] ?>
+                        18:00
+                        <br>
+                        <?= $row["Wx"] ?>
                         <br>
                         <img src="<?= "Images/icon/" . $row["WxValue"] . ".png"  ?>" alt="" width="100" height="80">
-                        <br><br>
-                        <?php if ($row["PoP"] == '-1') : ?>
-                        <?php else : ?>
-                            <img src="Images/icon/降雨量.png" width="30" height="20" alt="">
-                            <?= $row["PoP"] ?>
-                        <?php endif; ?>
                         <br>
+                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?php   $T = explode("溫度攝氏", $row["T"]);
+                        echo $T[1]
+                        ?>
                         <br>
-                        <img src="Images/icon/溫度.png" width="30" height="20" alt=""><?= $row["T"] ?>
-                        <br><br>
+                        舒適度：<?= $row["CI"] ?>
+                        <br>
+                        <?= $row["RH"] ?><br>
                     </tr>
+                    
                 </div>
 
             <?php } ?>
