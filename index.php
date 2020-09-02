@@ -1,31 +1,22 @@
 <?php
 session_start();
-// date_default_timezone_set('Asia/Taipei');
-// $date = date("Y-m-d H:i:s");
-$url = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-20260A47-5D47-474D-AABA-BBC6BC84F310&format=JSON&sort=time";  // Your json data url
-$json = file_get_contents($url);  // PHP get data from url
-$data = json_decode($json, true);  // Decode json data
-global $cid;
 
-$locationName = $data['records']['location'];
+//用來記錄星期
 $week = array("日", "一", "二", "三", "四", "五", "六");
 
+//按下按鈕將選擇的縣市存到session並引入即時,未來兩天,未來一週的php檔
 if (isset($_POST["btnOk"])) {
-    $cityi = $_POST["selectCity"];
     $_SESSION['selectCity'] = $_POST["selectCity"];
-    // echo $cid;
     require("current_weather.php");
     require("twodays_weather.php");
     require("oneweek_weather.php");
-    // header("location:".$method.".php");
-
-
 }
+
+//按下按鈕將選擇的縣市存到session並跳轉到雨量測量php
 if (isset($_POST["btnRain"])) {
     $_SESSION['selectCity'] = $_POST["selectCity"];
     header("location:rainfall.php");
 }
-
 ?>
 
 
@@ -45,6 +36,7 @@ if (isset($_POST["btnRain"])) {
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/grid.css">
 </head>
+<!-- 顯示提示字特效 -->
 <script>
     $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
@@ -141,7 +133,7 @@ if (isset($_POST["btnRain"])) {
 
 
 
-
+        <!-- 未來兩天 -->
         <h2 style="text-align:left;">
             未來兩天
         </h2>
@@ -175,7 +167,7 @@ if (isset($_POST["btnRain"])) {
 
 
                     <?php $row = mysqli_fetch_assoc($twodays) ?>
-                   
+
                     <tr>
                         <br>
                         傍晚天氣狀況：<?= $row["Wx"] ?>
@@ -200,20 +192,20 @@ if (isset($_POST["btnRain"])) {
         </h2>
 
 
-        <div class="row " >
+        <div class="row ">
 
             <?php while ($row = mysqli_fetch_assoc($oneweek)) {    ?>
-                <div id="box1" class="col-md table " >
+                <div id="box1" class="col-md table ">
                     <div style="background-color: #C4E1FF;">
                         <?php list($date) = explode(" ", $row["startTime"]); //取出日期部份 
                         list($Y, $M, $D) = explode("-", $date); //分離出年月日以便製作時戳
                         echo $date;
                         echo "<br>";
                         echo "星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))]; ?>
-                        </div>
-                        <div style="background-color: #84C1FF;">
+                    </div>
+                    <div style="background-color: #84C1FF;">
 
-                        
+
                         <br>
                         06:00<br>
                         <?= $row["Wx"] ?>
@@ -227,11 +219,11 @@ if (isset($_POST["btnRain"])) {
                         舒適度：<?= $row["CI"] ?>
                         <br>
                         <?= $row["RH"] ?><br>
-                        </div>
+                    </div>
                     <?php $row = mysqli_fetch_assoc($oneweek) ?>
                     <div style="background-color: #2894FF;">
 
-                    
+
 
                         <br>
                         18:00
@@ -258,8 +250,8 @@ if (isset($_POST["btnRain"])) {
     </form>
 
 
-
-    <button type="button" id="BackTop" class="btn btn-primary" >回頂部</button>
+    <!-- 回頂部特效 -->
+    <button type="button" id="BackTop" class="btn btn-primary">回頂部</button>
     <script>
         $(function() {
             $('#BackTop').click(function() {
