@@ -27,7 +27,7 @@ $data2 = json_decode($json2, true);  // 將json轉成陣列或object
 $weatherElement2 = $data2['records']["locations"][0]['location'][0]['weatherElement'];
 
 //用來判斷開始時間
-$today = date('Y-m-d');
+$today = date('Y-m-d', strtotime("+1 day"));
 $oneweek =  date('Y-m-d', strtotime("+8 day"));
 
 //綜合描述所有值
