@@ -11,26 +11,34 @@ $resource_id = "F-D0047-091";
 $Authorization = "CWB-20260A47-5D47-474D-AABA-BBC6BC84F310";
 $locationName = urlencode($cityName);
 
-$url = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/" . $resource_id . "?Authorization=" . $Authorization . "&format=JSON&locationName=" . $locationName . "&sort=time";  // Your json data url
-$json = file_get_contents($url);  // 把整個文件讀入一個字符串中
-$data = json_decode($json, true);  // 將json轉成陣列或object 
-// var_dump($data);
+//抓取天氣綜合描述
+$url1 = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/" . $resource_id . "?Authorization=" . $Authorization . "&format=JSON&locationName=" . $locationName . "&elementName=WeatherDescription&sort=time";  // Your json data url
+$json1 = file_get_contents($url1);  // 把整個文件讀入一個字符串中
+$data1 = json_decode($json1, true);  // 將json轉成陣列或object 
 
-$weatherElement = $data['records']["locations"][0]['location'][0]['weatherElement'];
+
+$weatherElement1 = $data1['records']["locations"][0]['location'][0]['weatherElement'];
+
+//抓取天氣值
+$url2 = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/" . $resource_id . "?Authorization=" . $Authorization . "&format=JSON&locationName=" . $locationName . "&elementName=Wx&sort=time";  // Your json data url
+$json2 = file_get_contents($url2);  // 把整個文件讀入一個字符串中
+$data2 = json_decode($json2, true);  // 將json轉成陣列或object 
+
+
+$weatherElement2 = $data2['records']["locations"][0]['location'][0]['weatherElement'];
+
 //用來判斷開始時間
 $today = date('Y-m-d');
 $oneweek =  date('Y-m-d', strtotime("+8 day"));
-// unset($json, $data);
-// var_dump(count($weatherElement));//記錄天氣因子個數
 
-foreach ($weatherElement[10]['time'] as $key => $value) {
+//綜合描述所有值
+foreach ($weatherElement1[0]['time'] as $key => $value) {
     if ($value["startTime"] > $today) {
         $startTime = $value['startTime'];
-        
+
         $weatherDescription = $value['elementValue'][0]['value'];
         $weatherDescription = explode("。", $weatherDescription);
         $Wx = $weatherDescription[0];
-        // echo "天氣狀況：" . $Wx . "<br>";
         if (count($weatherDescription) > 6) {
             $PoP = $weatherDescription[1];
             $T = $weatherDescription[2];
@@ -41,7 +49,6 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
                     values('$cityName','$Wx','0','$PoP','$T','$CI','$RH','$startTime')
                   sqlstate;
             mysqli_query($link, $sql);
-            // echo $PoP . "<br>";
         } else {
             $T = $weatherDescription[1];
             $CI = $weatherDescription[2];
@@ -52,15 +59,11 @@ foreach ($weatherElement[10]['time'] as $key => $value) {
                   sqlstate;
             mysqli_query($link, $sql);
         }
-        // echo $T . "<br>";
-        // echo "舒適度：" . $CI . "<br>";
-        // echo "開始時間 : " . $startTime . "<br>";
     }
-    // echo "<br>";
 }
 
-
-foreach ($weatherElement[6]['time'] as $key => $value) {
+//天氣所有值
+foreach ($weatherElement2[0]['time'] as $key => $value) {
     if ($value["startTime"] > $today) {
         $startTime = $value['startTime'];
         $WxValue = $value['elementValue'][1]['value'];
@@ -68,10 +71,10 @@ foreach ($weatherElement[6]['time'] as $key => $value) {
         update oneweek set WxValue = '$WxValue' where cityName = '$cityName' and startTime= '$startTime' 
       sqlstate;
         mysqli_query($link, $sql);
-        // echo "<br>";
     }
 }
 
+//秀出選取城市所有資料
 $sql = <<<sqlstate
 select * from oneweek
 where cityName = '$cityName';
