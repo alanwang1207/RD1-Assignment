@@ -6,6 +6,7 @@ use test3;
 CREATE TABLE `currentwt` (
   `cityName` varchar(30)  NOT NULL,
   `Wx` varchar(30)  NOT NULL,
+  `WxValue` VARCHAR(30) NOT NULL,
   `PoP` varchar(30)  NOT NULL,
   `MinT` varchar(30)  NOT NULL,
   `MaxT` varchar(30)  NOT NULL,

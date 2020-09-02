@@ -109,7 +109,7 @@ if (isset($_POST["btnRain"])) {
                 <tbody>
                     <?php while ($row = mysqli_fetch_assoc($currentwt)) { ?>
                         <thead>
-                            <img src="<?= "Images/icon/" . $row["Wx"] . ".png"  ?>" alt="" width="100" height="80" class="mx-auto d-block">
+                            <img src="<?= "Images/icon/" . $row["WxValue"] . ".png"  ?>" alt="" width="100" height="80" class="mx-auto d-block">
                             <tr>
                                 <th>天氣狀況：</th>
                                 <th>降雨機率：</th>

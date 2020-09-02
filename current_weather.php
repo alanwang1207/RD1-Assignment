@@ -27,6 +27,7 @@ for ($i = 0; $i < count($weatherElement); $i++) {
     // echo "<br>";
     $ntime = $weatherElement[$i]["time"][0];
     $parameterName = $ntime["parameter"]["parameterName"];
+    
     // echo "startTime : " . $startTime = $time[0]["startTime"];
     // echo "<br>";
     // echo "endTime : " . $endTime = $time[0]["endTime"];
@@ -34,7 +35,8 @@ for ($i = 0; $i < count($weatherElement); $i++) {
     switch ($elementName) {
         case "Wx":
             $Wx = $parameterName;
-            // echo "目前天氣狀況 : " . $Wx;
+            $WxValue = $ntime["parameter"]["parameterValue"];
+            // echo "目前天氣狀況 : " . $WxValue;
             // echo "<br>";
             break;
         case "PoP":
@@ -61,8 +63,8 @@ for ($i = 0; $i < count($weatherElement); $i++) {
 }
 
 $sql = <<<sqlstate
-    insert into currentwt (cityName,Wx,PoP,MinT,MaxT,CI)
-    values('$cityName','$Wx','$PoP','$MinT','$MaxT','$CI')
+    insert into currentwt (cityName,Wx,WxValue,PoP,MinT,MaxT,CI)
+    values('$cityName','$Wx','$WxValue','$PoP','$MinT','$MaxT','$CI')
   sqlstate;
 
 mysqli_query($link, $sql);
@@ -74,27 +76,3 @@ $currentwt = mysqli_query($link, $sql);
 
 ?>
 
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-<?php while ($row = mysqli_fetch_assoc($result)) { ?>
-            <tr>
-                <td><?= $row["cityName"] ?></td>
-                <td><?= $row["Wx"] ?></td>
-                <td><?= $row["PoP"] ?></td>
-                <td><?= $row["MinT"] ?></td>
-                <td><?= $row["MaxT"] ?></td>
-                <td><?= $row["CI"] ?></td>
-            </tr>
-        <?php } ?>
-</body>
-
-</html> -->
