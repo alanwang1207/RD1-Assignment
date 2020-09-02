@@ -23,7 +23,7 @@ $today = date('Y-m-d', strtotime("+1 day"));
 $twoday =  date('Y-m-d', strtotime("+3 day"));
 // unset($json, $data);
 // var_dump(count($weatherElement));//記錄天氣因子個數
-
+// 抓取天氣值
 
 foreach ($weatherElement[6]['time'] as $key => $value) {
     if ($value["startTime"] > $today && $twoday > $value["startTime"]) {
@@ -35,26 +35,27 @@ foreach ($weatherElement[6]['time'] as $key => $value) {
         $T = $weatherDescription[2];
         $CI = $weatherDescription[3];
         $RH = $weatherDescription[5];
-        // echo "天氣狀況：" . $Wx;
-        // echo "<br>";
-        // echo $PoP;
-        // echo "<br>";
-        // echo $T;
-        // echo "<br>";
-        // echo "舒適度：" . $CI;
-        // echo "<br>";
-        // echo $RH;
-        // echo "<br>";
-        // echo "開始時間 : " . $startTime;
-        // echo "<br>";
         $sql = <<<sqlstate
-                    insert into twodays (cityName,Wx,PoP,T,CI,RH,startTime)
-                    values('$cityName','$Wx','$PoP','$T','$CI','$RH','$startTime')
+                    insert into twodays (cityName,Wx,WxValue,PoP,T,CI,RH,startTime)
+                    values('$cityName','$Wx','0','$PoP','$T','$CI','$RH','$startTime')
+                  sqlstate;
+        mysqli_query($link, $sql);
+    }
+}
+foreach ($weatherElement[1]['time'] as $key => $value) {
+    if ($value["startTime"] > $today && $twoday > $value["startTime"]) {
+        $startTime = $value['startTime'];
+        $weatherDescription = $value['elementValue'][0]['value'];
+        $WxValue =  $value['elementValue'][1]['value'];
+        
+        $sql = <<<sqlstate
+                    update twodays set WxValue = '$WxValue' where cityName = '$cityName' and startTime= '$startTime' 
                   sqlstate;
         mysqli_query($link, $sql);
         // echo "<br>";
     }
 }
+
 
 $sql = <<<sqlstate
 select * from twodays
