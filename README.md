@@ -10,20 +10,17 @@
 2. 上述各式氣象資料，請一併儲存於資料庫
 3. 介面排版與所需素材請自由發揮
 
-縣市選擇
-當前天氣 wx
-未來一週 
-累積雨量
+# 製作流程
+- 建立資料表 
+- 抓取即時資料
+- 抓取兩天後資料
+- 抓取一週資料
+- 景點天氣圖蒐集
+- 首頁介面優化
+- 抓取雨量累積資料
 
-pop
-mint
-ci
-maxt
 
-使用者選擇縣市後 開始抓資料 先丟到陣列 再丟進資料庫 接著讀出來
-
-RAIN 1小時
-HOUR_24 ２４小時
-
-records location [i] parameter [0] [parameterValue] = 城市名
-[records] [location] [i] [parameter] [4] [parameterValue] = 中央氣象局
+## 參考資料
+[氣象局api介紹](https://opendata.cwb.gov.tw/opendatadoc/CWB_Opendata_API_V1.2.pdf)
+[讀資料](https://stockwfj3.pixnet.net/blog/post/115238854)
+[天氣圖](https://www.iconfinder.com/iconsets/weather-flat-14)
