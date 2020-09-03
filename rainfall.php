@@ -21,7 +21,7 @@ $locations = $data['records']['location'];
 for ($i = 0; $i < count($locations); $i++) {
     $attr = $locations[$i]['parameter'][4]['parameterValue'];
     $city = $locations[$i]['parameter'][0]['parameterValue'];
-    if ($attr != '局屬無人測站' && $city == $cityName) {
+    if ($city == $cityName) {
         $locationName = $locations[$i]['locationName'];
         $onehour = $locations[$i]['weatherElement'][1]['elementValue'];
         $HOUR_24 = $locations[$i]['weatherElement'][6]['elementValue'];
@@ -117,7 +117,24 @@ $rainfall = mysqli_query($link, $sql);
 
 
 
-
+    <!-- 回頂部特效 -->
+    <button type="button" id="BackTop" class="btn btn-primary">回頂部</button>
+    <script>
+        $(function() {
+            $('#BackTop').click(function() {
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 333);
+            });
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 300) {
+                    $('#BackTop').fadeIn(222);
+                } else {
+                    $('#BackTop').stop().fadeOut(222);
+                }
+            }).scroll();
+        });
+    </script>
 
 
 
