@@ -42,3 +42,15 @@ CREATE TABLE `rainfall` (
   `onehour` varchar(30)  NOT NULL,
   `HOUR_24` varchar(30)  NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+  CREATE TABLE  `yilan` (
+  `locationName` varchar(30)  NOT NULL,
+  `Wx` varchar(30)  NOT NULL,
+  `WxValue` int NOT NULL,
+  `PoP` varchar(30)  NOT NULL,
+  `T` varchar(30)  NOT NULL,
+  `CI` varchar(30)  NOT NULL,
+  `RH` varchar(30)  NOT NULL,
+  `startTime` DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

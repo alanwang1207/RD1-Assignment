@@ -88,6 +88,7 @@ if (isset($_POST["btnRain"])) {
         </select>
         <input type="submit" class="btn btn-primary" name="btnOk" id="btnOk" value="送出">
         <input type="submit" class="btn btn-success" id="btnRain" name="btnRain" value="雨量觀測">
+        <input type="submit" class="btn btn-info" id="btnMore" name="btnMore" value="看更多">
 
 
 
