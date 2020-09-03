@@ -38,6 +38,7 @@ CREATE TABLE `oneweek` (
 CREATE TABLE `rainfall` (
   `locationName` varchar(30)  NOT NULL,
   `city` varchar(30)  NOT NULL,
+  `townName` varchar(30)  NOT NULL,
   `onehour` varchar(30)  NOT NULL,
   `HOUR_24` varchar(30)  NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

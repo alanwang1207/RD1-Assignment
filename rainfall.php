@@ -2,6 +2,9 @@
 session_start();
 require_once("config.php");
 $cityName = $_SESSION['selectCity'];
+
+
+
 $sql = <<<sqlstate
                     delete from rainfall where city = '$cityName';
                   sqlstate;
@@ -19,26 +22,41 @@ $locations = $data['records']['location'];
 
 //用for篩選出所選城市的有人觀測站
 for ($i = 0; $i < count($locations); $i++) {
-    $attr = $locations[$i]['parameter'][4]['parameterValue'];
     $city = $locations[$i]['parameter'][0]['parameterValue'];
+    $townName = $locations[$i]['parameter'][2]['parameterValue'];
+    $attr = $locations[$i]['parameter'][4]['parameterValue'];
+
     if ($city == $cityName) {
         $locationName = $locations[$i]['locationName'];
+        $townName = $locations[$i]['parameter'][2]['parameterValue'];
         $onehour = $locations[$i]['weatherElement'][1]['elementValue'];
         $HOUR_24 = $locations[$i]['weatherElement'][6]['elementValue'];
         $sql = <<<sqlstate
 
-                    insert into rainfall (locationName,city,onehour,HOUR_24)
-                    values('$locationName','$city','$onehour','$HOUR_24')
+                    insert into rainfall (locationName,townName,city,onehour,HOUR_24)
+                    values('$locationName','$townName','$city','$onehour','$HOUR_24')
                   sqlstate;
         mysqli_query($link, $sql);
     }
 }
+
+
+
 
 //秀出選取城市所有資料
 $sql = <<<sqlstate
                     select * from rainfall where city = '$cityName'
                   sqlstate;
 $rainfall = mysqli_query($link, $sql);
+//搜尋區域
+if(isset($_POST["btnSearch"])){
+    $town = $_POST["town"];
+    $sql = <<<multi
+    select * from rainfall
+    where townName like '%$town%' and city = '$cityName'
+    multi;
+    $rainfall = mysqli_query($link, $sql);
+}
 ?>
 
 
@@ -83,11 +101,18 @@ $rainfall = mysqli_query($link, $sql);
     </div>
 
 
+    <form class="form-inline" method="POST">
+            <label for="town">請輸入區域 : </label>
+            <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name = "town" id="town">
+            <input name = "btnSearch" id= "btnSearch" type="submit" class="btn btn-primary btn-sm">
+        </form>
+
     <div class="container">
 
         <table class="table table-bordered" style="width: 40em;">
             <thead>
                 <tr>
+                    <th>區域</th>
                     <th>觀測站名</th>
                     <th>１小時累積雨量</th>
                     <th>24小時累積雨量</th>
@@ -96,6 +121,7 @@ $rainfall = mysqli_query($link, $sql);
             <?php while ($row = mysqli_fetch_assoc($rainfall)) {    ?>
                 <tbody>
                     <tr>
+                        <td><?= $row["townName"] ?></td>
                         <td><?= $row["locationName"] ?></td>
                         <td><?php if ($row["onehour"] <= '0') : ?>
                                 該時刻因故無資料
