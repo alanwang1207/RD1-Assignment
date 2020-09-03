@@ -1,6 +1,6 @@
-create database test3 DEFAULT character set utf8;
+create database rd1 DEFAULT character set utf8;
 
-use test3;
+use rd1;
 
 
 CREATE TABLE `currentwt` (
