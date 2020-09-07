@@ -43,15 +43,33 @@ $twoday =  date('Y-m-d', strtotime("+3 day"));
                 $startTime = $value['startTime'];
                 $weatherDescription = $value['elementValue'][0]['value'];
                 $weatherDescription = explode("。", $weatherDescription);
-                $Wx = $weatherDescription[0];
-                $PoP = $weatherDescription[1];
-                $T = $weatherDescription[2];
-                $CI = $weatherDescription[3];
-                $sql = <<<sqlstate
+                if (count($weatherDescription) > 6) {
+                    if($weatherDescription[1] == "降雨機率  %"){
+                        $PoP = "暫無資料";
+                    }else{
+                        $PoP = $weatherDescription[1];
+                    }
+                    $Wx = $weatherDescription[0];
+                    
+                    $T = $weatherDescription[2];
+                    $CI = $weatherDescription[3];
+                    $sql = <<<sqlstate
                     insert into twodays (cityName,locationName,Wx,WxValue,PoP,T,CI,RH,startTime)
                     values('$cityName','$locationName','$Wx','0','$PoP','$T','$CI','0','$startTime')
                   sqlstate;
                 mysqli_query($link, $sql);
+                }else{
+                    $Wx = $weatherDescription[0];
+                    $PoP = "暫無資料";
+                    $T = $weatherDescription[1];
+                    $CI = $weatherDescription[2];
+                    $sql = <<<sqlstate
+                    insert into twodays (cityName,locationName,Wx,WxValue,PoP,T,CI,RH,startTime)
+                    values('$cityName','$locationName','$Wx','0','$PoP','$T','$CI','0','$startTime')
+                  sqlstate;
+                mysqli_query($link, $sql);
+                }
+
             }
         }
 
