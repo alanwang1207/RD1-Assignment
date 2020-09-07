@@ -36,16 +36,34 @@ foreach ($weatherElement1[0]['time'] as $key => $value) {
         $startTime = $value['startTime'];
         $weatherDescription = $value['elementValue'][0]['value'];
         $weatherDescription = explode("。", $weatherDescription);
-        $Wx = $weatherDescription[0];
-        $PoP = $weatherDescription[1];
-        $T = $weatherDescription[2];
-        $CI = $weatherDescription[3];
-        $RH = $weatherDescription[5];
-        $sql = <<<sqlstate
-                    insert into twodays (cityName,Wx,WxValue,PoP,T,CI,RH,startTime)
-                    values('$cityName','$Wx','0','$PoP','$T','$CI','$RH','$startTime')
-                  sqlstate;
-        mysqli_query($link, $sql);
+        if (count($weatherDescription) > 6) {
+            if($weatherDescription[1] == "降雨機率  %"){
+                $PoP = "暫無資料";
+            }else{
+                $PoP = $weatherDescription[1];
+            }
+            $Wx = $weatherDescription[0];
+            
+            $T = $weatherDescription[2];
+            $CI = $weatherDescription[3];
+            $RH = $weatherDescription[5];
+            $sql = <<<sqlstate
+                        insert into twodays (cityName,Wx,WxValue,PoP,T,CI,RH,startTime)
+                        values('$cityName','$Wx','0','$PoP','$T','$CI','$RH','$startTime')
+                      sqlstate;
+            mysqli_query($link, $sql);
+        }else{
+            $Wx = $weatherDescription[0];
+            $PoP = "暫無資料";
+            $T = $weatherDescription[1];
+            $CI = $weatherDescription[2];
+            $RH = $weatherDescription[4];
+            $sql = <<<sqlstate
+                        insert into twodays (cityName,Wx,WxValue,PoP,T,CI,RH,startTime)
+                        values('$cityName','$Wx','0','$PoP','$T','$CI','$RH','$startTime')
+                      sqlstate;
+            mysqli_query($link, $sql);
+        }
     }
 }
 
@@ -55,7 +73,7 @@ foreach ($weatherElement2[0]['time'] as $key => $value) {
         $startTime = $value['startTime'];
         $weatherDescription = $value['elementValue'][0]['value'];
         $WxValue =  $value['elementValue'][1]['value'];
-        
+
         $sql = <<<sqlstate
                     update twodays set WxValue = '$WxValue' where cityName = '$cityName' and startTime= '$startTime' 
                   sqlstate;
