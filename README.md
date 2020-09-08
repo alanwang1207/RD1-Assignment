@@ -33,3 +33,6 @@
 [讀資料](https://stockwfj3.pixnet.net/blog/post/115238854)
 
 [天氣圖](https://www.iconfinder.com/iconsets/weather-flat-14)
+
+## 簡單說明
+desc.txt
