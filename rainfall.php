@@ -123,15 +123,19 @@ if(isset($_POST["btnSearch"])){
                     <tr>
                         <td><?= $row["townName"] ?></td>
                         <td><?= $row["locationName"] ?></td>
-                        <td><?php if ($row["onehour"] <= '0') : ?>
+                        <td><?php if ($row["onehour"] < '0') : ?>
                                 該時刻因故無資料
                             <?php else : ?>
                                 <?= $row["onehour"] . "mm" ?>
                             <?php endif; ?></td>
-                        <td><?php if ($row["HOUR_24"] <= '0') : ?>
+                        <td><?php if ($row["HOUR_24"] < '0') : ?>
                                 該時刻因故無資料
-                            <?php else : ?>
+                            <?php elseif($row["HOUR_24"] == '0.00') : ?>
                                 <?= $row["HOUR_24"] . "mm" ?>
+                            <?php else : ?>
+                                <p style="color: red;">
+                                <?= $row["HOUR_24"] . "mm" ?>   
+                                </p>
                             <?php endif; ?></td>
                     </tr>
                     </tr>
