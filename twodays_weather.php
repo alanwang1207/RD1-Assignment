@@ -37,13 +37,13 @@ foreach ($weatherElement1[0]['time'] as $key => $value) {
         $weatherDescription = $value['elementValue'][0]['value'];
         $weatherDescription = explode("。", $weatherDescription);
         if (count($weatherDescription) > 6) {
-            if($weatherDescription[1] == "降雨機率  %"){
+            if ($weatherDescription[1] == "降雨機率  %") {
                 $PoP = "暫無資料";
-            }else{
+            } else {
                 $PoP = $weatherDescription[1];
             }
             $Wx = $weatherDescription[0];
-            
+
             $T = $weatherDescription[2];
             $CI = $weatherDescription[3];
             $RH = $weatherDescription[5];
@@ -52,7 +52,7 @@ foreach ($weatherElement1[0]['time'] as $key => $value) {
                         values('$cityName','$Wx','0','$PoP','$T','$CI','$RH','$startTime')
                       sqlstate;
             mysqli_query($link, $sql);
-        }else{
+        } else {
             $Wx = $weatherDescription[0];
             $PoP = "暫無資料";
             $T = $weatherDescription[1];
@@ -66,7 +66,6 @@ foreach ($weatherElement1[0]['time'] as $key => $value) {
         }
     }
 }
-
 //天氣所有值
 foreach ($weatherElement2[0]['time'] as $key => $value) {
     if ($value["startTime"] > $today && $twoday > $value["startTime"]) {
@@ -80,7 +79,6 @@ foreach ($weatherElement2[0]['time'] as $key => $value) {
         mysqli_query($link, $sql);
     }
 }
-
 //秀出選取城市所有資料
 $sql = <<<sqlstate
 select * from twodays

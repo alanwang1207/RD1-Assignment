@@ -2,9 +2,6 @@
 session_start();
 require_once("config.php");
 $cityName = $_SESSION['selectCity'];
-
-
-
 $sql = <<<sqlstate
                     delete from rainfall where city = '$cityName';
                   sqlstate;
@@ -40,9 +37,6 @@ for ($i = 0; $i < count($locations); $i++) {
     }
 }
 
-
-
-
 //秀出選取城市所有資料
 $sql = <<<sqlstate
                     select * from rainfall where city = '$cityName'
@@ -58,7 +52,6 @@ if(isset($_POST["btnSearch"])){
     $rainfall = mysqli_query($link, $sql);
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,16 +75,13 @@ if(isset($_POST["btnSearch"])){
 </script>
 
 <body>
-
     <div class="p-3 mb-2 bg-primary text-white">
         <h1>
             <a href="index.php" class="text-light" data-toggle="tooltip" title="按我回首頁">RD1-氣象網</a>
         </h1>
         <form method="post">
-
         </form>
     </div>
-
     <div class="box-body">
         <h2 class="card-title">城市名：<?= $cityName ?></h2>
         <h2>中央氣象局雨量觀測站</h2>
@@ -99,16 +89,12 @@ if(isset($_POST["btnSearch"])){
     <div>
         <img src="<?= "Images/" . $_SESSION['selectCity'] . ".jpg"  ?>" alt="" width="500" height="400" class="img-thumbnail  float-right">
     </div>
-
-
     <form class="form-inline" method="POST">
             <label for="town">請輸入區域 : </label>
             <input type="keyword" class="form-control" pattern="^[\u4e00-\u9fa5a-zA-Z]+$" name = "town" id="town">
             <input name = "btnSearch" id= "btnSearch" type="submit" class="btn btn-primary btn-sm">
         </form>
-
     <div class="container">
-
         <table class="table table-bordered" style="width: 40em;">
             <thead>
                 <tr>
@@ -143,10 +129,6 @@ if(isset($_POST["btnSearch"])){
                 </tbody>
         </table>
     </div>
-
-
-
-
     <!-- 回頂部特效 -->
     <button type="button" id="BackTop" class="btn btn-primary">回頂部</button>
     <script>
@@ -165,10 +147,6 @@ if(isset($_POST["btnSearch"])){
             }).scroll();
         });
     </script>
-
-
-
-
 </body>
 
 </html>

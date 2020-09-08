@@ -44,7 +44,6 @@ if (isset($_POST["btnOk"])) {
 <body>
 
     <body>
-
         <div class="p-3 mb-2 bg-primary text-white">
             <h1>
                 <a href="../index.php" class="text-light" data-toggle="tooltip" title="按我回首頁">RD1-氣象網</a>
@@ -82,12 +81,8 @@ if (isset($_POST["btnOk"])) {
                 <option value="三灣鄉">三灣鄉</option>
                 <option value="後龍鎮">後龍鎮</option>
                 <option value="獅潭鄉">獅潭鄉</option>
-
             </select>
             <input type="submit" class="btn btn-primary" name="btnOk" id="btnOk" value="送出">
-
-
-
             <!-- 未來兩天 -->
             <h2 style="text-align:left;">
                 未來兩天
@@ -120,10 +115,7 @@ if (isset($_POST["btnOk"])) {
                                 <br><br>
                             </tr>
                         </tbody>
-
-
                         <?php $row = mysqli_fetch_assoc($twodays) ?>
-
                         <tr>
                             <br>
                             傍晚天氣狀況：<?= $row["Wx"] ?>
@@ -136,7 +128,6 @@ if (isset($_POST["btnOk"])) {
                             <br><br>
                         </tr>
                     </div>
-
                 <?php } ?>
             </div>
 

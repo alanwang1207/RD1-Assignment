@@ -11,14 +11,7 @@ if (isset($_POST["btnOk"])) {
     require("twodays_weather.php");
     require("oneweek_weather.php");
 }
-
 ?>
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +52,7 @@ if (isset($_POST["btnOk"])) {
             <h2>鄉鎮市區名：<?= $_POST["selectLocation"] ?></h2>
         </div>
         <div>
-            <img src="<?= "Images/" . $_POST["selectLocation"]. ".jpg"  ?>" alt="" width="500" height="400" class="img-thumbnail  float-right">
+            <img src="<?= "Images/" . $_POST["selectLocation"] . ".jpg"  ?>" alt="" width="500" height="400" class="img-thumbnail  float-right">
         </div>
         <form method="post">
             <select name="selectLocation" id="selectLocation" style="width: 200px;" class="browser-default custom-select">
@@ -78,9 +71,6 @@ if (isset($_POST["btnOk"])) {
                 <option value="五結鄉">五結鄉</option>
             </select>
             <input type="submit" class="btn btn-primary" name="btnOk" id="btnOk" value="送出">
-
-
-
             <!-- 未來兩天 -->
             <h2 style="text-align:left;">
                 未來兩天
@@ -132,18 +122,11 @@ if (isset($_POST["btnOk"])) {
 
                 <?php } ?>
             </div>
-
-
-
             <!-- 未來一週 -->
-
             <h2>
                 未來一週
             </h2>
-
-
             <div class="row ">
-
                 <?php while ($row = mysqli_fetch_assoc($oneweek)) {    ?>
                     <div id="box1" class="col-md table ">
                         <div style="background-color: #C4E1FF;">
@@ -154,8 +137,6 @@ if (isset($_POST["btnOk"])) {
                             echo "星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))]; ?>
                         </div>
                         <div style="background-color: #84C1FF;">
-
-
                             <br>
                             06:00<br>
                             <?= $row["Wx"] ?>
@@ -172,9 +153,6 @@ if (isset($_POST["btnOk"])) {
                         </div>
                         <?php $row = mysqli_fetch_assoc($oneweek) ?>
                         <div style="background-color: #2894FF;">
-
-
-
                             <br>
                             18:00
                             <br>
@@ -189,17 +167,11 @@ if (isset($_POST["btnOk"])) {
                             舒適度：<?= $row["CI"] ?>
                             <br>
                             <?= $row["RH"] ?><br>
-
                         </div>
                     </div>
-
                 <?php } ?>
-
             </div>
-
         </form>
-
-
         <!-- 回頂部特效 -->
         <button type="button" id="BackTop" class="btn btn-primary">回頂部</button>
         <script>

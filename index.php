@@ -19,14 +19,12 @@ if (isset($_POST["btnRain"])) {
     header("location:rainfall.php");
 }
 
-if(isset($_POST['btnMore'])){
+if (isset($_POST['btnMore'])) {
     $_SESSION['selectCity'] = $_POST["selectCity"];
     // $cityName = urlencode($cityName);
-    header("location:".$_SESSION['selectCity']."/index.php");
+    header("location:" . $_SESSION['selectCity'] . "/index.php");
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,16 +49,13 @@ if(isset($_POST['btnMore'])){
 </script>
 
 <body>
-
     <div class="p-3 mb-2 bg-primary text-white">
         <h1>
             <a href="index.php" class="text-light" data-toggle="tooltip" title="按我回首頁">RD1-氣象網</a>
         </h1>
         <form method="post">
-
         </form>
     </div>
-
     <div class="box-body">
         <h2>城市名：<?= $_POST["selectCity"] ?></h2>
     </div>
@@ -92,33 +87,11 @@ if(isset($_POST['btnMore'])){
             <option value="澎湖縣">澎湖縣</option>
             <option value="金門縣">金門縣</option>
             <option value="連江縣">連江縣</option>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </select>
         <input type="submit" class="btn btn-primary" name="btnOk" id="btnOk" value="送出">
         <input type="submit" class="btn btn-success" id="btnRain" name="btnRain" value="雨量觀測">
         <input type="submit" class="btn btn-info" id="btnMore" name="btnMore" value="看更多">
-
-
-
         <div class="text-center col card box-margins" style="width: 35rem;">
-
             <!-- 即時天氣 -->
             <h2>
                 即時天氣
@@ -136,38 +109,22 @@ if(isset($_POST['btnMore'])){
                             </tr>
                         </thead>
                         <tr>
-
                             <td><?= $row["Wx"] ?></td>
                             <td><?= $row["PoP"] ?>%</td>
                             <td><?= $row["MinT"] ?>～<?= $row["MaxT"] ?>°C</td>
                             <td><?= $row["CI"] ?></td>
-
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
         <!-- 未來兩天 -->
         <h2 style="text-align:left;">
             未來兩天
         </h2>
         <div class="row ">
             <?php while ($row = mysqli_fetch_assoc($twodays)) {    ?>
-
                 <div class="col-sm ">
-
                     <thead>
                         <tr class="test">
                             <?php list($date) = explode(" ", $row["startTime"]); //取出日期部份 
@@ -190,10 +147,7 @@ if(isset($_POST['btnMore'])){
                             <br><br>
                         </tr>
                     </tbody>
-
-
                     <?php $row = mysqli_fetch_assoc($twodays) ?>
-
                     <tr>
                         <br>
                         傍晚天氣狀況：<?= $row["Wx"] ?>
@@ -206,20 +160,13 @@ if(isset($_POST['btnMore'])){
                         <br><br>
                     </tr>
                 </div>
-
             <?php } ?>
         </div>
-
-
         <!-- 未來一週 -->
-
         <h2>
             未來一週
         </h2>
-
-
         <div class="row ">
-
             <?php while ($row = mysqli_fetch_assoc($oneweek)) {    ?>
                 <div id="box1" class="col-md table ">
                     <div style="background-color: #C4E1FF;">
@@ -230,8 +177,6 @@ if(isset($_POST['btnMore'])){
                         echo "星期" . $week[date("w", mktime(0, 0, 0, $M, $D, $Y))]; ?>
                     </div>
                     <div style="background-color: #84C1FF;">
-
-
                         <br>
                         06:00<br>
                         <?= $row["Wx"] ?>
@@ -248,9 +193,6 @@ if(isset($_POST['btnMore'])){
                     </div>
                     <?php $row = mysqli_fetch_assoc($oneweek) ?>
                     <div style="background-color: #2894FF;">
-
-
-
                         <br>
                         18:00
                         <br>
@@ -265,17 +207,11 @@ if(isset($_POST['btnMore'])){
                         舒適度：<?= $row["CI"] ?>
                         <br>
                         <?= $row["RH"] ?><br>
-
                     </div>
                 </div>
-
             <?php } ?>
-
         </div>
-
     </form>
-
-
     <!-- 回頂部特效 -->
     <button type="button" id="BackTop" class="btn btn-primary">回頂部</button>
     <script>
